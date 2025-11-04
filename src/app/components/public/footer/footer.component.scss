@@ -1,0 +1,137 @@
+.footer-container {
+  background: var(--color-background-dark-secondary);
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-base);
+  position: relative;
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 50px 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-section {
+  flex: 1;
+  padding: 20px;
+  min-width: 280px;
+}
+
+.footer-section h2 {
+  color: var(--color-text-dark);
+  margin-bottom: 25px;
+  font-size: 1.5em;
+}
+
+.logo-text {
+  font-size: 2.2em;
+  margin-bottom: 20px;
+  color: var(--color-text-dark);
+}
+
+.logo-text span {
+  color: var(--color-primary);
+}
+
+.about p {
+  font-style: italic;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.contact span {
+  display: block;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  color: var(--color-text-dark);
+}
+
+.contact span mat-icon {
+  color: var(--color-primary);
+  margin-right: 10px;
+}
+
+.socials {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  // border: 1px solid var(--color-line-primary);
+  // width: 45px;
+  // height: 45px;
+  // padding-top: 8px;
+  margin: 1rem 2rem;
+  text-align: center;
+  border-radius: 5px;
+  transition: all .3s ease-in-out;  
+
+  a {
+   padding: 0.5rem; 
+  }
+  .mat-icon-social {
+    color: var(--color-text-secondary);
+  }
+}
+
+.socials a:hover {
+  // border: 1px solid var(--color-primary);
+  background-color: var(--color-primary);
+  transition: all .3s ease-in-out;
+}
+
+
+.socials a:hover img {
+    filter: invert(100%);
+}
+
+.links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.links ul a {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: all .3s ease-in-out;
+}
+
+.links ul a:hover {
+  color: var(--color-primary);
+  margin-left: 10px;
+  transition: all .3s ease-in-out;
+}
+
+.footer-bottom {
+  background: var(--color-background-sidebar);
+  color: #686868;
+  height: 60px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  padding-top: 20px;
+  font-size: 0.9em;
+}
+
+/* --- Estilos para o formulário (mesmo comentado) --- */
+.contact-input {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.contact-btn {
+  width: 100%;
+}
+
+/* --- Responsividade --- */
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    padding: 20px;
+  }
+}

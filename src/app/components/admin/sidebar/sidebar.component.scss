@@ -1,0 +1,190 @@
+/* sidebar.component.scss */
+
+::ng-deep .material-symbols-outlined,
+::ng-deep .material-icons {
+    /* Estilo Base: Ícone sem preenchimento, peso 400 */
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 500,
+        'GRAD' 1,
+        'opsz' 24;
+    
+    transition: font-variation-settings 0.2s ease-in-out;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    /* Usando var() para as cores */
+    background-color: var(--color-text-light); 
+    height: calc(100vh);
+    border-radius: 0;
+    border-style: none;
+    padding: 0;
+
+    /* --- User Info --- */
+    .user-info {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 1.37rem 1rem;
+
+        .user-avatar {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 9999px;
+            object-fit: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+
+            .user-name {
+                color: var(--color-white);
+                font-size: 1rem;
+                font-weight: 500;
+                line-height: normal;
+            }
+
+            .user-email {
+                color: var(--color-text-secondary); 
+                font-size: 0.875rem;
+                font-weight: 400;
+                line-height: normal;
+            }
+        }
+    }
+    
+    .mat-list-container{
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+        padding: 1rem 0.5rem 1rem 0.5rem;
+        
+        .mat-list-title-group{
+            color: var(--color-text-secondary);
+        }
+
+        .mat-list-title-container {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            gap: 0.5rem;
+            margin: 0 0 0.5rem 0;
+            
+            .mat-list-icon {
+                    color: var(--color-white);
+                    padding: 0.5rem;
+            }
+
+            .mat-list-title-group {
+                display: flex;
+                align-items: center;
+                font-size: 1.1rem;
+                font-weight: 300;
+                padding-left: 0rem;
+                line-height: normal;
+                color: var(--color-text-secondary);
+            }
+        }
+        .mat-list-loja-border {
+            // border-top: 2px solid var(--color-background-dark-secondary);
+            padding-bottom: 1rem;
+        }
+
+        .mat-list-item-loja {
+            padding: 0 0.5rem;
+            height: 43px;
+                    
+            /* O Angular Material adiciona padding aqui; o !important é opcional, 
+            mas garante que o layout interno seja respeitado */
+            padding-left: 0 !important; 
+            padding-right: 0 !important;
+            
+            &:hover {
+                background-color: var(--color-background-dark-secondary);
+                color: var(--color-white);
+            }
+            
+            .mat-list-span{
+                display: flex;
+                align-items: center;
+                flex-direction: row;
+                margin: 0 0.5rem;
+                // justify-content: space-between;
+
+                .mat-list-icon {
+                    color: var(--color-white);
+                    padding: 0rem 0rem 0.5rem 0.5rem;
+                }
+
+                .mat-list-text {
+                    display: flex;
+                    // align-items: center;
+                    font-size: 1rem;
+                    font-weight: 100;
+                    padding-left: 1rem;
+                    line-height: normal;
+                    color: var(--color-white);
+                }
+            }
+        }
+
+        .mat-list-catalogo-border {
+            border-top: 2px solid var(--color-background-dark-secondary);
+            padding-top: 1.5rem;
+        }
+
+        .mat-list-item-configure {
+            padding: 0 0.5rem;
+            height: 43px;
+                    
+            padding-left: 0 !important; 
+            padding-right: 0 !important;
+            
+            &:hover {
+                background-color: var(--color-background-dark-secondary);
+                color: var(--color-white);
+            }
+            
+            .mat-list-span{
+                display: flex;
+                align-items: center;
+                flex-direction: row;
+                justify-content: space-between;
+
+                .mat-list-icon {
+                    /* **SOLUÇÃO DO ESPAÇAMENTO** */
+                    color: var(--color-white);
+                    padding: 0.5rem;
+                }
+
+                .mat-list-text {
+                    display: flex;
+                    // align-items: center;
+                    font-size: 1rem;
+                    font-weight: 100;
+                    padding-left: 1rem;
+                    line-height: normal;
+                    color: var(--color-white);
+                }
+            }
+        }
+    }
+        
+    
+
+    /* --- Estado Ativo --- */
+    .active-link {
+        background-color: var(--color-primary) !important;
+        
+        /* Garante que o texto e ícone do link ativo tenham a cor correta */
+        .mdc-list-item__primary-text, 
+        .mdc-list-item__primary-text mat-icon {
+            color: var(--color-white) !important;
+        }
+    }
+}

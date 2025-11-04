@@ -1,0 +1,28 @@
+<mat-toolbar color="primary" class="header-container">
+  <div class="header-container-bloco">
+    <div class="header-section logo-section">
+      <a routerLink="/home" class="logo-text">Guitar<span>Store</span></a>
+    </div>
+
+    <!-- Campo de Busca -->
+    <div class="header-section search-section">
+      <!-- <input type="text" class="search-input" placeholder="Pesquise por um formato de braço" [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange($event)"> -->
+      <input type="text" class="search-input" placeholder="Pesquise por guitarra, modelo, marca...">
+    </div>
+
+    <!-- Ícones de Ação -->
+    <div class="header-section actions-section">
+      <button mat-icon-button aria-label="Conta de usuário">
+        <mat-icon>person_outline</mat-icon>
+      </button>
+      <button mat-icon-button aria-label="Itens favoritos">
+        <mat-icon>favorite_border</mat-icon>
+      </button>
+      <button mat-icon-button aria-label="Carrinho de compras">
+        <mat-icon>shopping_cart_outline</mat-icon>
+      </button>
+    </div>
+  </div>
+  <!-- Logo -->
+  
+</mat-toolbar>

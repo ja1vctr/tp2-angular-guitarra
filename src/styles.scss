@@ -1,0 +1,54 @@
+@use '@angular/material' as mat;
+@import './styles/snackbar-theme.css';
+
+:root {
+  /* Cores Primárias */
+  --color-primary: #d44211;         /* Ex: Marrom Terra (Madeira de Guitarra) */
+  --color-secondary: #b35a00; 
+  --color-border: #e5e5e5; 
+  
+  /* Cores de Hover */
+  --color-hover-primary: #e2e2e4;          /* Ex: Marrom Escuro (Hover de Itens) */
+  --color-hover-secondary: #673f32; 
+  --color-hover-tertiary: #332019;
+
+  /* Ex: Marrom Terra (Madeira de Guitarra) */
+  --color-primary-dark: #663300;
+  --color-primary-light: #dfdede;
+  
+  /* Cores Neutras */
+  --color-background-light: #f8f6f6;
+  --color-background-sidebar: #080606;
+  --color-background-light-secondary: #ececec;
+  --color-background-dark: #221511;
+  --color-background-dark-secondary: #332019;
+  --color-background-dark-tertiary: #64392b;
+  --color-line-primary: #332019;
+  --color-white: #ffffff;
+  
+  --color-text-light: #080606;
+  --color-text-light-secondary: #1c1c1c;
+  --color-text-dark: #f8f6f6;
+  --color-text-secondary: #c9a092; /* Ex: Cinza Azulado (Textos Secundários) */
+
+
+  /* Fontes */
+  --font-family-base: 'Space Grotesk', sans-serif;;
+  --font-size-base: 14px;
+  
+  /* Sombras */
+  --shadow-base: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+  @include mat.paginator-overrides((
+    container-text-color: #b35a00,
+    container-background-color: #332019,
+  ));
+}
+html, body { 
+  height: 100vh;
+  margin: 0%;
+  padding: 0%;
+  overflow: hidden;
+  background-color: var(--color-background-dark);
+}
+body { margin: 0; font-family: var(--font-family-base) }

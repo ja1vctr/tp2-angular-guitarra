@@ -1,0 +1,177 @@
+/* cor-list.component.scss */
+
+/* Para o componente de lista, você pode querer adicionar a classe .dark 
+   ao container ou usar :host-context(body.dark) para garantir o tema escuro. */
+
+.container {
+  max-width: 800px;
+  margin: 5rem auto;
+  padding: 2rem 4rem 4rem 4rem;
+  background-color: var(--color-background-light); /* Usa um fundo escuro secundário */
+  border-radius: 8px;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.4); /* Sombra mais escura */
+}
+
+.form-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.form-title {
+  display: flex;
+  justify-content: start;
+  color: var(--color-text-light); /* Título em cor clara */
+  margin-bottom: 1rem; /* Reduzido o margin um pouco */
+  font-size: 2.3rem;
+  font-weight: 700; /* Aumentado o peso (wght) para combinar com a ênfase dos ícones */
+}
+
+.form-toogle {
+  height: 100%;
+  text-align: center;
+  color: var(--color-text-light);
+  font-size: 1.8rem;
+  font-weight: 200;
+}
+
+.form-subtitle {
+  color: var(--color-text-secondary); /* Subtítulo em cor secundária clara */
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  padding-bottom: 1em;
+  border-top: 1px solid var(--color-border); /* Linha divisória em cor escura */
+  padding-top: 2em;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-label {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-text-light);
+}
+
+/* --- Estilização de Inputs (Campos de Formulário) --- */
+
+.form-input {
+  padding: 0.75rem;
+  background-color: var(--color-background-light-secondary); /* Fundo mais claro no hover */
+  color: var(--color-text-light);
+  padding: 1rem;
+  font-size: 1rem;
+  border: 0;
+}
+
+.form-input-descricao {
+  display: flex;
+  align-items: start;
+  justify-content: right;
+  height: 130px;
+}
+
+.form-input:hover {
+  background-color: var(--color-border);  
+  outline: none;
+}
+
+.form-input:focus {
+  background-color: var(--color-background-light-secondary); /* Fundo mais claro no hover */
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(212, 66, 17, 0.5); /* Usa um alpha da cor primária */
+}
+
+select.form-input {
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1em;
+  padding-right: 2.5rem;
+}
+
+.form-group-input {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+}
+
+.error-message {
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  color: var(--color-primary); /* Usa a cor primária para mensagens de erro */
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+/* --- Estilização dos Botões --- */
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.button-group {
+  /* width: 100%; */
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.btn-primary {
+  background-color: var(--color-primary); /* Cor primária */
+  color: var(--color-white);
+  font-weight: 500;
+    font-size: 1rem;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-secondary); /* Cor secundária ou um tom escuro da primária */
+}
+
+.btn-primary:disabled {
+  background-color: var(--color-text-secondary); /* Cor mais clara para desabilitado */
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background-color: rgb(167, 41, 41); /* Fundo escuro para secundário */
+  color: var(--color-white);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-background-dark); /* Tom mais claro no hover */
+  color: var(--color-text-secondary); 
+}
+
+@media (max-width: 768px) {
+  .form-grid {
+      grid-template-columns: 1fr;
+  }
+
+  .container {
+      margin: 1rem;
+      padding: 1rem;
+  }
+}

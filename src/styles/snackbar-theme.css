@@ -1,0 +1,52 @@
+/* Estilos globais para snackbars do Angular Material */
+
+/* Base geral de snackbar */
+.mat-mdc-snack-bar-container {
+  border-radius: 8px;
+  padding: 2rem 1rem;
+  font-weight: 500;
+}
+
+/* Snackbar de erro */
+.mat-mdc-snack-bar-container.snackbar-error {
+  --mdc-snackbar-container-color: #d32f2f;
+  --mdc-snackbar-supporting-text-color: #fff;
+  --mdc-snackbar-supporting-text-font-weight: 500;
+}
+
+.mat-mdc-snack-bar-container.snackbar-error .mat-mdc-button {
+  color: #fff;
+  font-weight: bold;
+}
+
+/* Snackbar de sucesso */
+.mat-mdc-snack-bar-container.snackbar-success {
+  --mdc-snackbar-container-color: #388e3c;
+  --mdc-snackbar-supporting-text-color: #fff;
+  --mdc-snackbar-supporting-text-font-weight: 500;
+}
+
+.mat-mdc-snack-bar-container.snackbar-success .mat-mdc-button {
+  color: #fff;
+  font-weight: bold;
+}
+
+/* Snackbar de informação */
+.mat-mdc-snack-bar-container.snackbar-info {
+  --mdc-snackbar-container-color: #1976d2;
+  --mdc-snackbar-supporting-text-color: #fff;
+}
+
+.mat-mdc-snack-bar-container.snackbar-info .mat-mdc-button {
+  color: #fff;
+}
+
+/* Snackbar de aviso */
+.mat-mdc-snack-bar-container.snackbar-warning {
+  --mdc-snackbar-container-color: #fbc02d;
+  --mdc-snackbar-supporting-text-color: #000;
+}
+
+.mat-mdc-snack-bar-container.snackbar-warning .mat-mdc-button {
+  color: #000;
+}

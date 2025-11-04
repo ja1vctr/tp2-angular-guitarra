@@ -1,0 +1,38 @@
+<div class="container responsive-grid">
+  @for (card of cards(); track card.idGuitarra ?? $index) {
+    <mat-card class="guitarra-card">
+      <div class="media-16x9">
+        <img
+          class="media-img"
+          [src]="card.imagemUrl || 'assets/guitarra.png'"
+          [alt]="card.nome" />
+      </div>
+
+      <mat-card-header class="header-center">
+        <mat-card-title>{{ card.nome }}</mat-card-title>
+        <mat-card-subtitle>
+          @if (card.modelo) {
+            <span>Modelo: {{ card.modelo.nome }}</span>
+          }
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content class="content-center">
+        <div class="preco">
+          {{ card.preco | currency:'BRL':'symbol-narrow':'1.2-2' }}
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions class="acoes">
+        <button mat-button color="primary">Ver mais…</button>
+        <!-- <button
+          mat-flat-button
+          color="accent"
+          class="btn-full"
+          (click)="adicionarAoCarrinho(card)">
+          Adicionar ao Carrinho
+        </button> -->
+      </mat-card-actions>
+    </mat-card>
+  }
+</div>

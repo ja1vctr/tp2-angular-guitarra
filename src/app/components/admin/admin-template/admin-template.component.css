@@ -1,0 +1,52 @@
+.admin-container {
+  height: 100%;
+}
+
+.admin-sidenav {
+  overflow: hidden;
+  color: var(--color-withe);
+  border-right-style: none;
+}
+
+.admin-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.admin-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Altura da toolbar se houver */
+  box-sizing: border-box;
+  background-color: var(--color-background-light);
+}
+
+.admin-sidenav {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  height: -moz-available;
+  border-radius: 0%;
+}
+
+/* app-sidebar {
+  overflow: hidden;
+  width: 10px;
+} */
+
+router-outlet {
+  display: block;
+}
+
+/* Solução elegante: o footer só desce se o conteúdo for pequeno */
+app-footer {
+  margin-top: auto;
+}
+
+:host {
+  display: block;
+  height: 100vh;
+  overflow: hidden;
+}

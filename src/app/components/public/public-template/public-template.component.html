@@ -1,0 +1,13 @@
+<mat-sidenav-container class="admin-container">
+  <app-header />
+  <mat-sidenav class="admin-sidenav">
+    <!-- <app-sidebar /> -->
+  </mat-sidenav>
+
+    <!-- <app-head (menuToggle)="sidenav.toggle()"></app-head> -->
+
+    <div class="admin-content">
+      <router-outlet></router-outlet>
+      <app-footer></app-footer>
+    </div>
+</mat-sidenav-container>

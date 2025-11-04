@@ -1,0 +1,79 @@
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <div class="header-content">
+        <div>
+          <h2 class="card-title">Lista de Bracos</h2>
+          <p class="card-description">Gerencie os bracos das guitarras disponíveis</p>
+        </div>
+        <button class="btn btn-primary" (click)="navigateToCreate()">
+          <mat-icon>add</mat-icon>
+          <i class="bi bi-plus-circle"></i> Adicionar uma nova braco
+        </button>
+      </div>
+    </div>
+    <div class="card-search">
+      <input type="text" class="search-input" placeholder="Pesquise por um formato de braço" [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange($event)">
+    </div>
+    <div class="card-body">
+      <!-- Estado de carregamento -->
+      <div *ngIf="loading" class="loading-container">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden"></span>
+        </div>
+        <p class="loading-text">Carregando...</p>
+      </div>
+
+      <!-- Mensagem quando não há armações -->
+      <div *ngIf="!loading && bracos.length === 0" class="empty-message">
+        <i class="bi bi-info-circle"></i>
+        <span>Nenhuma braco encontrada no catálogo.</span>
+      </div>
+
+      <!-- Tabela de armações -->
+      <div *ngIf="!loading && bracos.length > 0" class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>formato</th>
+              <th>madeira</th>
+              <th>Numero de Trastes</th>
+              <th>Data de fabricação</th>
+              <th>Descrição</th>
+              <th class="actions-column">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let braco of bracos">
+              <td>{{ braco.id  }}</td>
+              <td>{{ braco.formato }}</td>
+              <td>{{ braco.madeira }}</td>
+              <td>{{ braco.numeroDeTrastes }}</td>
+              <td>{{ braco.dataDeFabricacao | date: 'dd/MM/yyyy'}}</td>
+              <td class="descricao-column">{{ braco.descricao }}</td>
+              <td class="actions-column">
+                <div class="action-buttons">
+                  <button mat-button class="btn btn-edit" (click)="navigateToEdit(braco.id!)">
+                    <mat-icon>edit</mat-icon>
+                    <span class="sr-only">Editar</span>
+                  </button>
+                  <button mat-button class="btn btn-delete" (click)="deleteBraco(braco.id!)">
+                    <mat-icon>delete</mat-icon>
+                    <span class="sr-only">Excluir</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <mat-paginator class="paginador" 
+    [pageSizeOptions]="[5, 10, 15, 20]"
+    [pageSize]="pageSize"
+    [length]="totalRecords"
+    (page)="paginar($event)">
+  </mat-paginator>
+</div>

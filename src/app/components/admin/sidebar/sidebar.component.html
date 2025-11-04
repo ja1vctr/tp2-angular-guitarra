@@ -1,0 +1,35 @@
+<mat-nav-list class="sidebar">
+  <div class="user-info">
+    <img [src]="userImage" alt="User Avatar" class="user-avatar">
+    <div class="user-details">
+      <span class="user-name">{{ userName }}</span>
+      <span class="user-email">{{ userEmail }}</span>
+    </div>
+  </div>
+  <div class="mat-list-container">
+    <div class="mat-list-loja-border">
+      <a mat-list-item class="mat-list-item-loja"
+        *ngFor="let item of navItemsLoja"
+        [routerLink]="item.link"
+        routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }">
+        <span class="mat-list-span">
+          <mat-icon matListIcon class="mat-list-icon">{{ item.icon }}</mat-icon>
+          <span matLine class="mat-list-text">{{ item.label }}</span>
+        </span>
+      </a>
+    </div>
+    <div class="mat-list-catalogo-border">
+      <a mat-list-item class="mat-list-item-configure"
+      *ngFor="let item of navItemsProduto"
+      [routerLink]="item.link"
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{ exact: true }">
+      <span class="mat-list-span">
+        <span matLine class="mat-list-text">{{ item.label }}</span>
+        <mat-icon matListIcon class="mat-list-icon">{{ item.icon }}</mat-icon>
+      </span>
+      </a>      
+    </div>
+  </div>
+</mat-nav-list>
