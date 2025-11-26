@@ -4,13 +4,13 @@
       <div class="media-16x9">
         <img
           class="media-img"
-          [src]="card.imagemUrl || 'assets/guitarra.png'"
+          [src]="card.imagemUrl || '/assets/user.png'"
           [alt]="card.nome" />
       </div>
-
-      <mat-card-header class="header-center">
-        <mat-card-title>{{ card.nome }}</mat-card-title>
-        <mat-card-subtitle>
+      <div class="card-description-actions">
+        <mat-card-header class="header-center">
+        <mat-card-title class="card-title">{{ card.nome }}</mat-card-title>
+        <mat-card-subtitle class="card-subtitle">
           @if (card.modelo) {
             <span>Modelo: {{ card.modelo.nome }}</span>
           }
@@ -18,13 +18,13 @@
       </mat-card-header>
 
       <mat-card-content class="content-center">
-        <div class="preco">
+        <div class="card-preco">
           {{ card.preco | currency:'BRL':'symbol-narrow':'1.2-2' }}
         </div>
       </mat-card-content>
 
       <mat-card-actions class="acoes">
-        <button mat-button color="primary">Ver mais…</button>
+        <button mat-button color="primary" class="card-button">Ver Detalhes</button>
         <!-- <button
           mat-flat-button
           color="accent"
@@ -33,6 +33,7 @@
           Adicionar ao Carrinho
         </button> -->
       </mat-card-actions>
+      </div>
     </mat-card>
   }
 </div>

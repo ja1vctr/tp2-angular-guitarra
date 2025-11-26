@@ -70,7 +70,7 @@ export class CardComponent {
       nome: p.nome,
       modelo: p.modelo,
       preco: p.preco,
-      imagemUrl: 'assets/img/planos/default.png'
+      imagemUrl: 'assets/fender.png'
    }));
     this.cards.set(list);
   }

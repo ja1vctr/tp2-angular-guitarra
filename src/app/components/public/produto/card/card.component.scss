@@ -4,7 +4,7 @@
 .container.responsive-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* ajuste o 280px se quiser mais estreito/largo */
-  gap: 16px;
+  gap: 1rem;
   align-items: stretch; /* força mesma altura na linha */
   margin: 0;
   padding: 0;
@@ -15,7 +15,7 @@
   position: relative;
   width: 100%;
   /* escolha um: aspect-ratio moderno OU padding hack */
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 2 / 3;
   overflow: hidden;
   border-top-left-radius: inherit;
   border-top-right-radius: inherit;
@@ -47,6 +47,8 @@ mat-card.guitarra-card {
   display: flex;
   flex-direction: column;
   height: 100%;
+  background-color: var(--color-background-sidebar);
+  aspect-ratio: 2 / 3;
 }
 
 /* ================================
@@ -55,7 +57,7 @@ mat-card.guitarra-card {
 .guitarra-img,
 mat-card .guitarra-img {
   width: 100%;
-  aspect-ratio: 16 / 9;   /* mantém 16:9 em qualquer largura */
+  aspect-ratio: 2 / 3;   /* mantém 16:9 em qualquer largura */
   object-fit: cover;
   display: block;
   border-top-left-radius: inherit;
@@ -66,10 +68,26 @@ mat-card .guitarra-img {
    HEADER CENTRALIZADO DE VERDADE
    (Material MDC v15+)
    ================================ */
+
+.card-description-actions {
+  padding: auto;
+
+}
 .header-center {
   display: flex;
-  justify-content: center;   /* centraliza o container do header */
-  padding-top: 8px;          /* leve respiro */
+  justify-content: start;   /* centraliza o container do header */
+  align-items: end;
+  padding-top: 8px; 
+  color: var(--color-text-secondary);
+  
+  .card-title {
+    font-weight: 600;
+    font-size: 1rem 
+  }/* leve respiro */
+}
+
+.card-subtitle {
+  color: var(--color-white);
 }
 
 .header-center .mat-mdc-card-header-text {
@@ -103,14 +121,15 @@ mat-card .guitarra-img {
    ================================ */
 .content-center { text-align: center; }
 
-.preco {
-  font-weight: 600;
-  font-size: 1.1rem;
-}
-.preco small {
-  font-weight: 500;
-  opacity: .9;
-}
+  .card-preco {
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--color-primary);
+  }
+  .card-preco small {
+    font-weight: 500;
+    opacity: .9;
+  }
 
 /* ================================
    AÇÕES (sempre no rodapé)

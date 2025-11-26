@@ -3,6 +3,8 @@ import { AdminTemplateComponent } from './components/admin/admin-template/admin-
 import { PublicTemplateComponent } from './components/public/public-template/public-template.component';
 import { CardComponent } from './components/public/produto/card/card.component';
 import { HomeComponent } from './components/admin/home/home.component';
+import { Pagina404Component } from './components/pagina404/pagina404.component';
+import { BracoListComponent } from './components/admin/produto/braco/braco-list/braco-list.component';
 
 export const routes: Routes = [
   {
@@ -40,11 +42,15 @@ export const routes: Routes = [
       {
         path: 'bracos',
         loadChildren: () => import('./components/admin/produto/braco/braco.module').then(m => m.BracoModule)
+      },
+      {
+        path: 'captadores',
+        loadChildren: () => import('./components/admin/produto/captador/captador.module').then(m => m.CaptadorModule)
       }
     ]
   },
   {
     path: '**',
-    redirectTo: ''
+    component: Pagina404Component,
   }
 ];

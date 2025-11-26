@@ -76,13 +76,6 @@
   border: 0;
 }
 
-.form-input-descricao {
-  display: flex;
-  align-items: start;
-  justify-content: right;
-  height: 130px;
-}
-
 .form-input:hover {
   background-color: var(--color-border);  
   outline: none;
@@ -100,13 +93,6 @@ select.form-input {
   background-position: right 0.75rem center;
   background-size: 1em;
   padding-right: 2.5rem;
-}
-
-.form-group-input {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-
 }
 
 .error-message {
@@ -141,7 +127,7 @@ select.form-input {
   background-color: var(--color-primary); /* Cor primária */
   color: var(--color-white);
   font-weight: 500;
-  font-size: 1rem;
+    font-size: 1rem;
 }
 
 .btn-primary:hover {

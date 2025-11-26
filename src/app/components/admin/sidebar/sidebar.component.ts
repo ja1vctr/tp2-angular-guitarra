@@ -25,7 +25,7 @@ export class SidebarComponent {
   
   navItemsProduto = [
   { label: 'Braços', link: '/admin/bracos', icon: 'edit' },
-  { label: 'Captadores', link: '/admin/', icon: 'edit' },
+  { label: 'Captadores', link: '/admin/captadores', icon: 'edit' },
   { label: 'Cores', link: '/admin/cores', icon: 'edit' },
   { label: 'Marcas', link: '/admin/', icon: 'edit' },
   { label: 'Ponte', link: '/admin/', icon: 'edit' },
