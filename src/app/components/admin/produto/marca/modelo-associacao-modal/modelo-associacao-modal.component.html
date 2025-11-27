@@ -1,0 +1,26 @@
+<div class="modal-container">
+  <h2 class="modal-title">Gerenciar Associações do Modelo</h2>
+
+  <div class="modal-content" *ngIf="modelo">
+
+    <p class="descricao">DESEJA MESMO EXCLUIR ESSE MODELO DO REGISTRO DESSA MARCA?</p>
+
+    <div class="marca-list">
+      <div *ngFor="let marca of modelo.marcasPossiveis" class="marca-item">
+        <mat-checkbox
+          [checked]="isMarcaSelecionada(marca)"
+          (change)="toggleMarca(marca)"
+        >
+          {{ marca.nome }}
+        </mat-checkbox>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="actions">
+    <button mat-button (click)="cancelar()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="salvar()">Apagar registro</button>
+  </div>
+
+</div>

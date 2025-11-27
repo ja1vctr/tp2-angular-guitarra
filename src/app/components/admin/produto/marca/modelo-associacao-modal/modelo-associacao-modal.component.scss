@@ -1,0 +1,37 @@
+.modal-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 2rem;
+  max-width: 600px;
+
+}
+
+.modal-title {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+.descricao {
+  color: var(--color-text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.marca-list {
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.marca-item {
+  padding: .5rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}

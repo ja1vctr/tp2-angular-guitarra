@@ -1,16 +1,13 @@
 import { CommonModule, formatDate } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, model, OnInit, ViewChild  } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '../../../../../service/notification/notification.service';
 import { CaptadorService } from '../../../../../service/produto/captador.service';
-import { MatCardModule } from '@angular/material/card';
-import { MatDatepickerModule, MatCalendar } from '@angular/material/datepicker';
-import { registerLocaleData } from '@angular/common';
-import localePt from '@angular/common/locales/pt';
-import { DateAdapter, MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
-import { notFutureDateValidator } from '../../../../../shared/validators/past-date.validator';
 
 @Component({
   selector: 'app-captador-form',
@@ -68,7 +65,12 @@ export class CaptadorFormComponent {
     this.loading = true;
     this.captadorService.getById(id).subscribe({
       next: (data) => {
-        this.captadorForm.patchValue(data);  
+        this.captadorForm.patchValue({
+          id: data.id,
+          marca: data.marca,
+          modelo: data.modelo,
+          posicao: data.posicao?.id ?? null,
+        });  
 
         this.loading = false;
         this.cdr.detectChanges();

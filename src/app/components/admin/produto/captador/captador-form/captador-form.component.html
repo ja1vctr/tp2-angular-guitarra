@@ -48,7 +48,6 @@
         <option [value]="2">Meio</option>
         <option [value]="3">Ponte</option>
       </select>
-
       <div class="error-message" *ngIf="captadorForm.get('posicao')?.touched && captadorForm.get('posicao')?.errors">
         <span *ngIf="captadorForm.get('posicao')?.hasError('required')">Posição é obrigatória.</span>
       </div>
@@ -59,7 +58,6 @@
       <button type="submit" class="btn btn-primary" [disabled]="captadorForm.invalid || loading">
         {{ loading ? 'Salvando...' : (captadorId ? 'Salvar Alterações' : 'Salvar') }}
       </button>
-
       <button type="button" class="btn btn-secondary" (click)="onCancel()">
         Cancelar
       </button>

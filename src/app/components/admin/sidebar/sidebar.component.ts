@@ -27,7 +27,7 @@ export class SidebarComponent {
   { label: 'Braços', link: '/admin/bracos', icon: 'edit' },
   { label: 'Captadores', link: '/admin/captadores', icon: 'edit' },
   { label: 'Cores', link: '/admin/cores', icon: 'edit' },
-  { label: 'Marcas', link: '/admin/', icon: 'edit' },
+  { label: 'Marcas', link: '/admin/marcas', icon: 'edit' },
   { label: 'Ponte', link: '/admin/', icon: 'edit' },
   { label: 'Tarracha', link: '/admin/', icon: 'edit' },
 ];

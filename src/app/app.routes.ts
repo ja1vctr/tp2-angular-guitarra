@@ -46,6 +46,10 @@ export const routes: Routes = [
       {
         path: 'captadores',
         loadChildren: () => import('./components/admin/produto/captador/captador.module').then(m => m.CaptadorModule)
+      },
+      {
+        path: 'marcas',
+        loadChildren: () => import('./components/admin/produto/marca/marca.module').then(m => m.MarcaModule)
       }
     ]
   },

@@ -1,0 +1,88 @@
+<div class="container">
+  <div class="form-header">
+    <h2 class="form-title">
+      {{ marcaId ? 'Editar Marca' : 'Nova Marca' }}
+    </h2>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="text-center mt-4 loading-indicator">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden"></span>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <form [formGroup]="marcaForm" (ngSubmit)="onSubmit()" class="form-grid" *ngIf="!loading">
+
+    <!-- NOME DA MARCA -->
+    <div class="form-group">
+      <label class="form-label" for="nome">Nome da Marca</label>
+      <input class="form-input" type="text" id="nome" formControlName="nome" placeholder="Ex: Fender">
+
+      <div class="error-message" *ngIf="marcaForm.get('nome')?.touched && marcaForm.get('nome')?.errors">
+        <span *ngIf="marcaForm.get('nome')?.hasError('required')">Campo obrigatório.</span>
+        <span *ngIf="marcaForm.get('nome')?.hasError('minlength')">Mínimo de 2 caracteres.</span>
+        <span *ngIf="marcaForm.get('nome')?.hasError('maxlength')">Máximo de 50 caracteres.</span>
+      </div>
+    </div>
+
+    <!-- CNPJ -->
+    <div class="form-group">
+      <label class="form-label" for="cnpj">CNPJ</label>
+      <input class="form-input" type="text" id="cnpj" formControlName="cnpj" placeholder="00.000.000/0001-00">
+
+      <div class="error-message" *ngIf="marcaForm.get('cnpj')?.touched && marcaForm.get('cnpj')?.errors">
+        <span *ngIf="marcaForm.get('cnpj')?.hasError('required')">Campo obrigatório.</span>
+        <span *ngIf="marcaForm.get('cnpj')?.hasError('minlength')">O CNPJ precisa ter 14 caracteres</span>
+        <span *ngIf="marcaForm.get('cnpj')?.hasError('maxlength')">O CNPJ precisa ter 14 caracteres</span>
+      </div>
+    </div>
+
+    <!-- LISTA DE MODELOS -->
+    <!-- LISTA DE MODELOS ASSOCIADOS -->
+    <div class="form-group full-width">
+      <label class="form-label">Modelos associados à marca</label>
+
+      <!-- Se houver modelos -->
+      <div class="modelos-section" *ngIf="listaModelos.length > 0">
+
+        <ul class="model-list">
+          <li *ngFor="let modelo of listaModelos" class="model-item">
+            <div class="model-info">
+              <span class="model-name">{{ modelo.nome }}</span>
+            </div>
+
+            <button type="button"
+                    class="btn-modelo"
+                    (click)="abrirModalAssociacao(modelo)">
+              Editar
+            </button>
+          </li>
+        </ul>
+
+      </div>
+
+      <!-- Nenhum modelo -->
+      <div class="empty-message" *ngIf="listaModelos.length === 0">
+        Nenhum modelo está associado a esta marca.
+      </div>
+    </div>
+
+    <!-- Caso não exista modelos -->
+    <div class="form-group full-width" *ngIf="listaModelos.length === 0">
+      <p class="empty-message">Nenhum modelo cadastrado para esta marca.</p>
+    </div>
+
+    <!-- Botões -->
+    <div class="button-group">
+      <button type="submit" class="btn btn-primary" [disabled]="marcaForm.invalid || loading">
+        {{ loading ? 'Salvando...' : (marcaId ? 'Salvar Alterações' : 'Salvar') }}
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">
+        Cancelar
+      </button>
+    </div>
+
+  </form>
+</div>
