@@ -17,18 +17,19 @@ export class SidebarComponent {
   userEmail = 'joao.victor@example.com';
 
   navItemsLoja = [
-  { label: 'Dashboard', link: '/admin/home', icon: 'dashboard' },
-  { label: 'Usuários', link: '/admin/usuario', icon: 'group' },
-  { label: 'Guitarras', link: '/admin/pedido', icon: '' },
-  { label: 'Pedidos', link: '/admin/guitarra', icon: '' },
-];
+    { label: 'Dashboard', link: '/admin/home', icon: 'dashboard' },
+    { label: 'Usuários', link: '/admin/usuario', icon: 'group' },
+    { label: 'Guitarras', link: '/admin/pedido', icon: '' },
+    { label: 'Pedidos', link: '/admin/guitarra', icon: '' },
+  ];
   
   navItemsProduto = [
-  { label: 'Braços', link: '/admin/bracos', icon: 'edit' },
-  { label: 'Captadores', link: '/admin/captadores', icon: 'edit' },
-  { label: 'Cores', link: '/admin/cores', icon: 'edit' },
-  { label: 'Marcas', link: '/admin/marcas', icon: 'edit' },
-  { label: 'Ponte', link: '/admin/', icon: 'edit' },
-  { label: 'Tarracha', link: '/admin/', icon: 'edit' },
-];
+    { label: 'Braços', link: '/admin/bracos', icon: 'edit' },
+    { label: 'Captadores', link: '/admin/captadores', icon: 'edit' },
+    { label: 'Cores', link: '/admin/cores', icon: 'edit' },
+    { label: 'Marcas', link: '/admin/marcas', icon: 'edit' },
+    { label: 'Modelos', link: '/admin/modelos', icon: 'edit' },
+    { label: 'Ponte', link: '/admin/', icon: 'edit' },
+    { label: 'Tarracha', link: '/admin/', icon: 'edit' },
+  ];
 }

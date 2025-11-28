@@ -33,9 +33,16 @@ export class BracoService {
   } 
 
   getAll(page?: number, pageSize?: number): Observable<Braco[]> {
-    return this.http.get<Braco[]>(this.apiUrl).pipe(
-      tap(bracos => console.log('Bracos carregadas:', bracos))
-    );
+    let params: any = {};
+
+    if (page !== undefined && pageSize !== undefined) {
+      params = {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      };
+    }
+
+    return this.http.get<Braco[]>(this.apiUrl, { params });
   }
 
   getById(id: number): Observable<Braco> {

@@ -33,9 +33,16 @@ export class ModeloService {
   } 
 
   getAll(page?: number, pageSize?: number): Observable<Modelo[]> {
-    return this.http.get<Modelo[]>(this.apiUrl).pipe(
-      tap(modelos => console.log('Modelos carregadas:', modelos))
-    );
+    let params: any = {};
+
+    if (page !== undefined && pageSize !== undefined) {
+      params = {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      };
+    }
+
+    return this.http.get<Modelo[]>(this.apiUrl, { params });
   }
 
   getById(id: number): Observable<Modelo> {

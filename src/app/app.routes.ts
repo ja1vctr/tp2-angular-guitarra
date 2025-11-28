@@ -50,6 +50,10 @@ export const routes: Routes = [
       {
         path: 'marcas',
         loadChildren: () => import('./components/admin/produto/marca/marca.module').then(m => m.MarcaModule)
+      },
+            {
+        path: 'modelos',
+        loadChildren: () => import('./components/admin/produto/modelo/modelo.module').then(m => m.ModeloModule)
       }
     ]
   },

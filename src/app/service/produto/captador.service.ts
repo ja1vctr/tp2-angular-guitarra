@@ -33,9 +33,16 @@ export class CaptadorService {
   } 
 
   getAll(page?: number, pageSize?: number): Observable<Captador[]> {
-    return this.http.get<Captador[]>(this.apiUrl).pipe(
-      tap(captadors => console.log('Captadors carregadas:', captadors))
-    );
+    let params: any = {};
+
+    if (page !== undefined && pageSize !== undefined) {
+      params = {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      };
+    }
+
+    return this.http.get<Captador[]>(this.apiUrl, { params });
   }
 
   getById(id: number): Observable<Captador> {

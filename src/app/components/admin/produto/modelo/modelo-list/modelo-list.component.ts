@@ -6,12 +6,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
-import { Marca } from '../../../../../model/produto/marca';
-import { MarcaService } from '../../../../../service/produto/marca.service';
+import { Modelo } from '../../../../../model/produto/modelo';
+import { ModeloService } from '../../../../../service/produto/modelo.service';
 import { NotificationService } from '../../../../../service/notification/notification.service';
 
 @Component({
-  selector: 'app-marca-list',
+  selector: 'app-modelo-list',
   imports: [
     CommonModule,
     MatIconModule,
@@ -19,69 +19,65 @@ import { NotificationService } from '../../../../../service/notification/notific
     MatInputModule,
     FormsModule,
   ],
-  templateUrl: './marca-list.component.html',
-  styleUrl: './marca-list.component.scss'
+  templateUrl: './modelo-list.component.html',
+  styleUrl: './modelo-list.component.scss'
 })
-export class MarcaListComponent implements OnInit {
-  marcas: Marca[] = [];
+export class ModeloListComponent implements OnInit{
+  modelos: Modelo[] = [];
   loading = false;
 
   // variaveis de controle para a paginacao
-  totalMarcas = 0;
-  pageSize = 10;
+  totalModelos  = 0;
+  pageSize = 20;
   page = 0;
 
   searchTerm: string = '';
   private searchSubject = new Subject<string>();
 
   constructor(
-    private marcaService:          MarcaService,
+    private modeloService:       ModeloService,
     private router:              Router,
     private notificationService: NotificationService
   ) {}
 
   ngOnInit() {
+    console.log('ngOnInit rodou');
     this.setupSearchStream();
     if (this.searchTerm === '') {
-      this.loadMarcas();
+      this.loadModelos();
     }
     this.loadCount();
   }
 
-  loadMarcas() {
+  loadModelos() {
     this.loading = true;
-    this.marcaService.getAll(this.page, this.pageSize).subscribe({
+    this.modeloService.getAll(this.page, this.pageSize).subscribe({
       next: (data) => {
-        this.marcas = data;
+        this.modelos = data;
         this.loading = false;
       },
       error: (error) => {
-        console.error('Error loading marcas: ', error)
+        console.error('Error loading modelos: ', error)
         this.loading = false;
       }
     });
   }
 
-  loadCount(): void {
-    this.marcaService.count().subscribe(data => {
-      this.totalMarcas = data;
-    })
-  }
   
   navigateToCreate(): void {
-    this.router.navigate(['/admin/marcas/create']);
+    this.router.navigate(['/admin/modelos/create']);
   }
 
   navigateToEdit(id: number): void {
-    this.router.navigate(['/admin/marcas/edit', id]);
+    this.router.navigate(['/admin/modelos/edit', id]);
   }
-
-  deleteMarca(id: number): void {
-    if (confirm('Tem certeza que deseja excluir esta marca?')) {
-      this.marcaService.delete(id).subscribe({
+  
+  deleteModelo(id: number): void {
+    if (confirm('Tem certeza que deseja excluir esta modelo?')) {
+      this.modeloService.delete(id).subscribe({
         next: () => {
-          this.loadMarcas();
-          this.notificationService.showSuccess('Marca excluída com sucesso!');
+          this.loadModelos();
+          this.notificationService.showSuccess('Modelo excluída com sucesso!');
         },
         error: (error) => {
           console
@@ -90,7 +86,7 @@ export class MarcaListComponent implements OnInit {
       });
     }
   }
-
+  
   setupSearchStream(): void {
     this.searchSubject.pipe(
       debounceTime(300), // ESPERA 300ms depois que o usuário para de digitar
@@ -100,40 +96,49 @@ export class MarcaListComponent implements OnInit {
       this.executeSearch(searchTerm);
     });
   }
+  
   onSearchChange(novoTermo: string): void {
     // Usa o valor do ngModel para enviar ao Subject
     this.searchSubject.next(novoTermo);
   }
-
+  
   executeSearch(termo: string): void {
     if (termo.trim() === '') {
-      this.loadMarcas();
+      this.loadModelos();
       this.loadCount();
       return;
     }
-
+    
     this.loading = true;
-    this.marcaService.getByNome(termo).subscribe({
+    this.modeloService.getByNome(termo).subscribe({
       next: (data) => {
-        this.marcas = data; 
-        this.totalMarcas = data.length;
+        this.modelos = data; 
+        this.totalModelos  = data.length;
         this.page = 0;
         this.loading = false;
       },
       error: (error) => {
-        console.error('Error searching marcas: ', error);
+        console.error('Error searching modelos: ', error);
         this.loading = false;
       }
     });
   }
+  
+  loadCount(): void {
+    this.modeloService.count().subscribe(data => {
+      this.totalModelos  = data;
+      console.log('Total de modelos: ', this.totalModelos );
+    })
+  }
 
   paginar(event: PageEvent): void {
     if (this.searchTerm.trim() === '') {
-        this.page = event.pageIndex;
-        this.pageSize = event.pageSize;
-        this.loadMarcas();
+      this.page = event.pageIndex;
+      this.pageSize = event.pageSize;
+      this.loadModelos();
+      console.log(`Página alterada: ${this.page}, Tamanho da página: ${this.pageSize}, Total de modelos: ${this.totalModelos }`);
     } else {
-        // Se estiver em modo de busca, podemos apenas mostrar um aviso
+      // Se estiver em modo de busca, podemos apenas mostrar um aviso
         console.warn('A paginação está desativada durante a busca.');
     }
   }

@@ -33,9 +33,16 @@ export class GuitarraService {
   } 
 
   getAll(page?: number, pageSize?: number): Observable<Guitarra[]> {
-    return this.http.get<Guitarra[]>(this.apiUrl).pipe(
-      tap(guitarras => console.log('Guitarras carregadas:', guitarras))
-    );
+    let params: any = {};
+
+    if (page !== undefined && pageSize !== undefined) {
+      params = {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      };
+    }
+
+    return this.http.get<Guitarra[]>(this.apiUrl, { params });
   }
 
   getById(id: number): Observable<Guitarra> {

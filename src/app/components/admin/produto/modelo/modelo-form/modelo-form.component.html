@@ -1,0 +1,91 @@
+<div class="container">
+
+  <!-- Cabeçalho -->
+  <div class="form-header">
+    <h2 class="form-title">
+      {{ modeloId ? 'Editar Modelo' : 'Novo Modelo' }}
+    </h2>
+  </div>
+
+  <!-- Loader -->
+  <div *ngIf="loading" class="text-center mt-4 loading-indicator">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden"></span> 
+    </div>
+  </div>
+
+  <!-- Formulário -->
+  <form 
+    [formGroup]="modeloForm" 
+    (ngSubmit)="onSubmit()" 
+    class="form-grid" 
+    *ngIf="!loading">
+
+    <!-- Campo Nome -->
+    <div class="form-group full-width">
+      <label class="form-label" for="nome">Nome</label>
+      <input 
+        class="form-input"
+        type="text"
+        id="nome"
+        formControlName="nome"
+        placeholder="Nome do Modelo">
+
+      <div class="error-message" *ngIf="modeloForm.get('nome')?.touched && modeloForm.get('nome')?.errors">
+        <span *ngIf="modeloForm.get('nome')?.hasError('required')">Nome é obrigatório.</span>
+        <span *ngIf="modeloForm.get('nome')?.hasError('minlength')">Mínimo de 2 caracteres.</span>
+        <span *ngIf="modeloForm.get('nome')?.hasError('maxlength')">Máximo de 40 caracteres.</span>
+      </div>
+    </div>
+
+  </form>
+
+  <!-- SEÇÃO DE MARCAS (FORA DO GRID) -->
+  <div class="marcas-section">
+    <div class="marcas-section-title">
+      <label class="form-label">Marcas associadas ao modelo</label>
+      <button 
+        type="button" 
+        class="btn btn-association" 
+        (click)="abrirModalAssociacao()">
+        Associar marcas
+      </button>
+    </div>
+
+    <!-- Lista de marcas -->
+    <div class="marcas-list" *ngIf="listMarcas && listMarcas.length > 0; else semMarcas">
+      <ul class="marca-list">
+        <li *ngFor="let marca of listMarcas" class="marca-item">
+          <span class="marca-name">{{ marca.nome }}</span>
+        </li>
+      </ul>
+    </div>
+
+    <ng-template #semMarcas>
+      <div class="empty-message">
+        Nenhuma marca associada a este modelo.
+      </div>
+    </ng-template>
+
+  </div>
+
+  <!-- Botões do formulário -->
+  <div class="button-group">
+    <button 
+      type="submit" 
+      class="btn btn-primary" 
+      (click)="onSubmit()"
+      [disabled]="modeloForm.invalid || loading">
+
+      {{ loading ? 'Salvando...' : (modeloId ? 'Salvar Alterações' : 'Salvar') }}
+    </button>
+
+    <button 
+      type="button" 
+      class="btn btn-secondary" 
+      (click)="onCancel()">
+      Cancelar
+    </button>
+  </div>
+
+</div>

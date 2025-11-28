@@ -27,7 +27,7 @@ export class BracoListComponent implements OnInit {
   loading = false;
 
   // variaveis de controle para a paginacao
-  totalRecords = 0;
+  totalBracos = 0;
   pageSize = 10;
   page = 0;
 
@@ -64,7 +64,7 @@ export class BracoListComponent implements OnInit {
 
   loadCount(): void {
     this.bracoService.count().subscribe(data => {
-      this.totalRecords = data;
+      this.totalBracos = data;
     })
   }
   
@@ -116,7 +116,7 @@ export class BracoListComponent implements OnInit {
     this.bracoService.getByFormato(termo).subscribe({
       next: (data) => {
         this.bracos = data; 
-        this.totalRecords = data.length;
+        this.totalBracos = data.length;
         this.page = 0;
         this.loading = false;
       },

@@ -33,9 +33,16 @@ export class CorService {
   } 
 
   getAll(page?: number, pageSize?: number): Observable<Cor[]> {
-    return this.http.get<Cor[]>(this.apiUrl).pipe(
-      tap(cores => console.log('Cores carregadas:', cores))
-    );
+    let params: any = {};
+
+    if (page !== undefined && pageSize !== undefined) {
+      params = {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      };
+    }
+
+    return this.http.get<Cor[]>(this.apiUrl, { params });
   }
 
   getById(id: number): Observable<Cor> {

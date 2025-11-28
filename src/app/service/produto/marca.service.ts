@@ -33,9 +33,16 @@ export class MarcaService {
   } 
 
   getAll(page?: number, pageSize?: number): Observable<Marca[]> {
-    return this.http.get<Marca[]>(this.apiUrl).pipe(
-      tap(marcas => console.log('Marcas carregadas:', marcas))
-    );
+    let params: any = {};
+
+    if (page !== undefined && pageSize !== undefined) {
+      params = {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      };
+    }
+
+    return this.http.get<Marca[]>(this.apiUrl, { params });
   }
 
   getById(id: number): Observable<Marca> {

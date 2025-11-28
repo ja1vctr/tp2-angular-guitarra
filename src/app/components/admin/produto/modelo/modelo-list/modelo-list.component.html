@@ -3,17 +3,17 @@
     <div class="card-header">
       <div class="header-content">
         <div>
-          <h2 class="card-title">Lista de Bracos</h2>
-          <p class="card-description">Gerencie os bracos das guitarras disponíveis</p>
+          <h2 class="card-title">Lista de Modelos</h2>
+          <p class="card-description">Gerencie as modelos das guitarras disponíveis</p>
         </div>
         <button class="btn btn-primary" (click)="navigateToCreate()">
           <mat-icon>add</mat-icon>
-          <i class="bi bi-plus-circle"></i> Adicionar uma nova braco
+          <i class="bi bi-plus-circle"></i> Adicionar uma nova modelo
         </button>
       </div>
     </div>
     <div class="card-search">
-      <input type="text" class="search-input" placeholder="Pesquise por um formato de braço" [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange($event)">
+      <input type="text" class="search-input" placeholder="Pesquise por uma modelo" [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange($event)">
     </div>
     <div class="card-body">
       <!-- Estado de carregamento -->
@@ -25,40 +25,32 @@
       </div>
 
       <!-- Mensagem quando não há armações -->
-      <div *ngIf="!loading && bracos.length === 0" class="empty-message">
+      <div *ngIf="!loading && modelos.length === 0" class="empty-message">
         <i class="bi bi-info-circle"></i>
-        <span>Nenhuma braco encontrada no catálogo.</span>
+        <span>Nenhuma modelo encontrada no catálogo.</span>
       </div>
 
       <!-- Tabela de armações -->
-      <div *ngIf="!loading && bracos.length > 0" class="table-container">
+      <div *ngIf="!loading && modelos.length > 0" class="table-container">
         <table class="data-table">
           <thead>
             <tr>
               <th>ID</th>
-              <th>formato</th>
-              <th>madeira</th>
-              <th>Numero de Trastes</th>
-              <th>Data de fabricação</th>
-              <th>Descrição</th>
+              <th>Nome</th>
               <th class="actions-column">Ações</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let braco of bracos">
-              <td>{{ braco.id  }}</td>
-              <td>{{ braco.formato }}</td>
-              <td>{{ braco.madeira }}</td>
-              <td>{{ braco.numeroDeTrastes }}</td>
-              <td>{{ braco.dataDeFabricacao | date: 'dd/MM/yyyy'}}</td>
-              <td class="descricao-column">{{ braco.descricao }}</td>
+            <tr *ngFor="let modelo of modelos">
+              <td>{{ modelo.id  }}</td>
+              <td>{{ modelo.nome }}</td>
               <td class="actions-column">
                 <div class="action-buttons">
-                  <button mat-button class="btn btn-edit" (click)="navigateToEdit(braco.id!)">
+                  <button mat-button class="btn btn-edit" (click)="navigateToEdit(modelo.id!)">
                     <mat-icon>edit</mat-icon>
                     <span class="sr-only">Editar</span>
                   </button>
-                  <button mat-button class="btn btn-delete" (click)="deleteBraco(braco.id!)">
+                  <button mat-button class="btn btn-delete" (click)="deleteModelo(modelo.id!)">
                     <mat-icon>delete</mat-icon>
                     <span class="sr-only">Excluir</span>
                   </button>
@@ -71,7 +63,7 @@
           [pageSizeOptions]="[5, 10, 15, 20]"
           [pageSize]="pageSize"
           [pageIndex]="page"
-          [length]="totalBracos"
+          [length]="totalModelos"
           (page)="paginar($event)">
         </mat-paginator>
       </div>

@@ -1,0 +1,37 @@
+<h2 mat-dialog-title>Associar Marcas ao Modelo "{{ modeloNome }}"</h2>
+
+<div mat-dialog-content class="modal-content">
+
+  <div *ngIf="loading" class="loading">
+    Carregando marcas...
+  </div>
+
+  <div *ngIf="!loading">
+
+    <ul class="marcas-list">
+      <li *ngFor="let marca of todasMarcas" class="marca-item">
+
+        <mat-checkbox
+          [checked]="isMarcaAssociada(marca.id)"
+          (change)="toggleMarca(marca.id, $event.checked)"
+        >
+          {{ marca.nome }}
+        </mat-checkbox>
+
+      </li>
+    </ul>
+
+    <div *ngIf="todasMarcas.length === 0" class="empty-msg">
+      Nenhuma marca cadastrada.
+    </div>
+
+  </div>
+
+</div>
+
+<div mat-dialog-actions class="actions">
+  <button mat-button (click)="fechar()">Cancelar</button>
+  <button mat-flat-button color="primary" (click)="confirmarAssociacao()">
+    Confirmar
+  </button>
+</div>
