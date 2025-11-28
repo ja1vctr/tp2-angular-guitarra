@@ -43,12 +43,12 @@ export class CaptadorListComponent {
   ngOnInit() {
     this.setupSearchStream();
     if (this.searchTerm === '') {
-      this.loadBracos();
+      this.loadCaptadores();
     }
     this.loadCount();
   }
 
-  loadBracos() {
+  loadCaptadores() {
     this.loading = true;
     this.captadorService.getAll(this.page, this.pageSize).subscribe({
       next: (data) => {
@@ -78,12 +78,12 @@ export class CaptadorListComponent {
     this.router.navigate(['/admin/captadores/edit', id]);
   }
 
-  deleteBraco(id: number): void {
+  deleteCaptador(id: number): void {
     if (confirm('Tem certeza que deseja excluir esta cor?')) {
       this.captadorService.delete(id).subscribe({
         next: () => {
-          this.loadBracos();
-          this.notificationService.showSuccess('Braco excluída com sucesso!');
+          this.loadCaptadores();
+          this.notificationService.showSuccess('Captador excluída com sucesso!');
         },
         error: (error) => {
           console
@@ -109,7 +109,7 @@ export class CaptadorListComponent {
 
   executeSearch(termo: string): void {
     if (termo.trim() === '') {
-      this.loadBracos();
+      this.loadCaptadores();
       this.loadCount();
       return;
     }
@@ -133,7 +133,7 @@ export class CaptadorListComponent {
     if (this.searchTerm.trim() === '') {
         this.page = event.pageIndex;
         this.pageSize = event.pageSize;
-        this.loadBracos();
+        this.loadCaptadores();
     } else {
         // Se estiver em modo de busca, podemos apenas mostrar um aviso
         console.warn('A paginação está desativada durante a busca.');

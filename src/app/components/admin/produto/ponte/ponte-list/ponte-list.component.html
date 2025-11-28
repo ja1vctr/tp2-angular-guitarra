@@ -1,1 +1,73 @@
-<p>ponte-list works!</p>
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <div class="header-content">
+        <div>
+          <h2 class="card-title">Lista de Pontes</h2>
+          <p class="card-description">Gerencie os pontes das guitarras disponíveis</p>
+        </div>
+        <button class="btn btn-primary" (click)="navigateToCreate()">
+          <mat-icon>add</mat-icon>
+          <i class="bi bi-plus-circle"></i> Adicionar uma nova ponte
+        </button>
+      </div>
+    </div>
+    <div class="card-search">
+      <input type="text" class="search-input" placeholder="Pesquise por um formato de braço" [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange($event)">
+    </div>
+    <div class="card-body">
+      <!-- Estado de carregamento -->
+      <div *ngIf="loading" class="loading-container">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden"></span>
+        </div>
+        <p class="loading-text">Carregando...</p>
+      </div>
+
+      <!-- Mensagem quando não há armações -->
+      <div *ngIf="!loading && pontes.length === 0" class="empty-message">
+        <i class="bi bi-info-circle"></i>
+        <span>Nenhuma ponte encontrada no catálogo.</span>
+      </div>
+
+      <!-- Tabela de armações -->
+      <div *ngIf="!loading && pontes.length > 0" class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>marca</th>
+              <th>moedlo</th>
+              <th class="actions-column">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let ponte of pontes">
+              <td>{{ ponte.id  }}</td>
+              <td>{{ ponte.marca }}</td>
+              <td>{{ ponte.modelo }}</td>
+              <td class="actions-column">
+                <div class="action-buttons">
+                  <button mat-button class="btn btn-edit" (click)="navigateToEdit(ponte.id!)">
+                    <mat-icon>edit</mat-icon>
+                    <span class="sr-only">Editar</span>
+                  </button>
+                  <button mat-button class="btn btn-delete" (click)="deletePonte(ponte.id!)">
+                    <mat-icon>delete</mat-icon>
+                    <span class="sr-only">Excluir</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <mat-paginator class="paginador" 
+    [pageSizeOptions]="[5, 10, 15, 20]"
+    [pageSize]="pageSize"
+    [length]="totalRecords"
+    (page)="paginar($event)">
+  </mat-paginator>
+</div>

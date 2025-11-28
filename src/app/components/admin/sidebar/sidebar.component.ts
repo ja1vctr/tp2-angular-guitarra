@@ -29,7 +29,7 @@ export class SidebarComponent {
     { label: 'Cores', link: '/admin/cores', icon: 'edit' },
     { label: 'Marcas', link: '/admin/marcas', icon: 'edit' },
     { label: 'Modelos', link: '/admin/modelos', icon: 'edit' },
-    { label: 'Ponte', link: '/admin/', icon: 'edit' },
+    { label: 'Pontes', link: '/admin/pontes', icon: 'edit' },
     { label: 'Tarracha', link: '/admin/', icon: 'edit' },
   ];
 }
