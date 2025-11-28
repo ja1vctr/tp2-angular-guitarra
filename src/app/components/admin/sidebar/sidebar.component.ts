@@ -30,6 +30,6 @@ export class SidebarComponent {
     { label: 'Marcas', link: '/admin/marcas', icon: 'edit' },
     { label: 'Modelos', link: '/admin/modelos', icon: 'edit' },
     { label: 'Pontes', link: '/admin/pontes', icon: 'edit' },
-    { label: 'Tarracha', link: '/admin/', icon: 'edit' },
+    { label: 'Tarracha', link: '/admin/tarrachas', icon: 'edit' },
   ];
 }

@@ -6,10 +6,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '../../../../../service/notification/notification.service';
-import { PonteService } from '../../../../../service/produto/ponte.service';
+import { TarrachaService } from '../../../../../service/produto/tarracha.service';
 
 @Component({
-  selector: 'app-ponte-form',
+  selector: 'app-tarracha-form',
   imports: [
     ReactiveFormsModule, 
     MatSlideToggleModule, 
@@ -17,20 +17,20 @@ import { PonteService } from '../../../../../service/produto/ponte.service';
     MatCardModule, 
     MatDatepickerModule
   ],
-  templateUrl: './ponte-form.component.html',
-  styleUrl: './ponte-form.component.scss'
+  templateUrl: './tarracha-form.component.html',
+  styleUrl: './tarracha-form.component.scss'
 })
-export class PonteFormComponent {
+export class TarrachaFormComponent {
   loading = false;
-  ponteForm: FormGroup;
+  tarrachaForm: FormGroup;
   error: string | null = null;
-  ponteId: number | null = null;
+  tarrachaId: number | null = null;
   backendErrorsList: any[] = [];
   dataSelecionada: Date | null = null;
 
   constructor(
     private router:              Router,
-    private ponteService:        PonteService,
+    private tarrachaService:        TarrachaService,
     private fb:                  FormBuilder,
     private route:               ActivatedRoute,
     private notificationService: NotificationService,
@@ -38,9 +38,10 @@ export class PonteFormComponent {
   ) 
   { 
     
-    this.ponteForm = this.fb.group({
+    this.tarrachaForm = this.fb.group({
     id: [null],
     marca: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+    material: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
     modelo: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
     });
   }
@@ -49,19 +50,20 @@ export class PonteFormComponent {
     this.route.paramMap.subscribe(params => {
       const idParam = params.get('id');
       if (idParam) {
-        this.ponteId = +idParam;
-        this.loadPonte(this.ponteId);
+        this.tarrachaId = +idParam;
+        this.loadTarracha(this.tarrachaId);
       }
     })
   }
 
-  loadPonte(id: number): void {
+  loadTarracha(id: number): void {
     this.loading = true;
-    this.ponteService.getById(id).subscribe({
+    this.tarrachaService.getById(id).subscribe({
       next: (data) => {
-        this.ponteForm.patchValue({
+        this.tarrachaForm.patchValue({
           id: data.id,
           marca: data.marca,
+          material: data.material,
           modelo: data.modelo,
         });  
 
@@ -70,52 +72,42 @@ export class PonteFormComponent {
       },
       error: (error) => {
         this.loading = false;
-        this.error = error.error.message || 'Erro ao carregar o ponte.';
+        this.error = error.error.message || 'Erro ao carregar o tarracha.';
         this.cdr.detectChanges();
       }
     });
   }
 
   onSubmit(): void {
-    if (this.ponteForm.invalid) {
-      this.ponteForm.markAllAsTouched();
+    if (this.tarrachaForm.invalid) {
+      this.tarrachaForm.markAllAsTouched();
       return;
     }
 
     this.loading = true;
     this.error = null;
     
-    const ponteData = this.ponteForm.value;
+    const tarrachaData = this.tarrachaForm.value;
 
-    const saveOperation = this.ponteId
-      ? this.ponteService.alter(ponteData)
-      : this.ponteService.create(ponteData);
+    const saveOperation = this.tarrachaId
+      ? this.tarrachaService.alter(tarrachaData)
+      : this.tarrachaService.create(tarrachaData);
 
     saveOperation.subscribe({
       next: () => {
         this.loading = false;
-        this.notificationService.showSuccess(this.ponteId ? 'Ponte atualizado com sucesso!' : 'Ponte criado com sucesso!');
-        this.router.navigate(['/admin/pontes']);
+        this.notificationService.showSuccess(this.tarrachaId ? 'Tarracha atualizado com sucesso!' : 'Tarracha criado com sucesso!');
+        this.router.navigate(['/admin/tarrachas']);
       },
       error: (error) => {
         this.loading = false;
 
-        console.error('Erro ao salvar o ponte:', error.error);
+        console.error('Erro ao salvar o tarracha:', error.error);
       }
     });
   }
 
-  onDateSelected(date: Date | null): void {
-    this.dataSelecionada = date;
-    if (date) {
-      const formattedDate = formatDate(date, 'yyyy-MM-dd', 'en-US');
-      this.ponteForm.get('dataDeFabricacao')?.setValue(formattedDate);
-    } else {
-      this.ponteForm.get('dataDeFabricacao')?.reset();
-    }
-  }
-
   onCancel(): void {
-    this.router.navigate(['/admin/pontes']);
+    this.router.navigate(['/admin/tarrachas']);
   }
 }

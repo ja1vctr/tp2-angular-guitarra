@@ -59,6 +59,10 @@ export const routes: Routes = [
         path: 'pontes',
         loadChildren: () => import('./components/admin/produto/ponte/ponte.module').then(m => m.PonteModule)
       },
+      {
+        path: 'tarrachas',
+        loadChildren: () => import('./components/admin/produto/tarracha/tarrach.module').then(m => m.TarrachaModule)
+      },
     ]
   },
   {
