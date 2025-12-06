@@ -35,7 +35,7 @@ export class MarcaListComponent implements OnInit {
   private searchSubject = new Subject<string>();
 
   constructor(
-    private marcaService:          MarcaService,
+    private marcaService:        MarcaService,
     private router:              Router,
     private notificationService: NotificationService
   ) {}

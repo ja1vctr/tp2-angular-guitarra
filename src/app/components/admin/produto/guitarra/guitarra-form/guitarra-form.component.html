@@ -1,0 +1,339 @@
+<div class="container">
+
+  <!-- Cabeçalho -->
+  <div class="form-header">
+    <h2 class="form-title">
+      {{ guitarraId ? 'Editar Guitarra' : 'Novo Guitarra' }}
+    </h2>
+  </div>
+
+  <!-- Loader -->
+  <div *ngIf="loading" class="text-center mt-4 loading-indicator">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden"></span>
+    </div>
+  </div>
+
+  <!-- Bloco de Visualização e Upload de Imagem -->
+  <div class="image-preview-container">
+    <div class="image-preview" *ngIf="imagemPreview; else placeholder">
+      <img [src]="imagemPreview" alt="Imagem da guitarra" />
+    </div>
+    <ng-template #placeholder>
+      <div class="image-preview image-placeholder">Sem imagem</div>
+    </ng-template>
+
+    <div class="image-actions">
+      <label class="file-input">
+        Escolher arquivo
+        <input type="file" id="imageUpload" accept="image/*" (change)="onFileSelected($event)" />
+      </label>
+      <button class="btn btn-secondary" type="button" (click)="onDownloadImagem()" [disabled]="!imagemPreview">
+        Download
+      </button>
+      <button class="btn btn-primary" type="button" (click)="onUploadImagem()" [disabled]="!guitarraId || !imagemArquivo">
+        Upload imagem
+      </button>
+    </div>
+  </div>
+
+  <!-- Formulário -->
+  <form [formGroup]="guitarraForm" (ngSubmit)="onSubmit()" class="form-grid" *ngIf="!loading">
+
+    <!-- Campo Nome -->
+    <div class="form-group full-width">
+      <label class="form-label" for="nome">Nome</label>
+      <input class="form-input" type="text" id="nome" formControlName="nome" placeholder="Nome do Guitarra">
+      <div class="error-message" *ngIf="guitarraForm.get('nome')?.touched && guitarraForm.get('nome')?.errors">
+        <span *ngIf="guitarraForm.get('nome')?.hasError('required')">Nome é obrigatório.</span>
+        <span *ngIf="guitarraForm.get('nome')?.hasError('minlength')">Mínimo de 2 caracteres.</span>
+        <span *ngIf="guitarraForm.get('nome')?.hasError('maxlength')">Máximo de 50 caracteres.</span>
+      </div>
+    </div>
+
+    <!-- Campo Descricao -->
+    <div class="form-group full-width">
+      <label class="form-label" for="descricao">Descrição</label>
+      <input class="form-input" type="text" id="descricao" formControlName="descricao"
+        placeholder="Descrição do Guitarra">
+      <div class="error-message"
+        *ngIf="guitarraForm.get('descricao')?.touched && guitarraForm.get('descricao')?.errors">
+        <span *ngIf="guitarraForm.get('descricao')?.hasError('required')">Descrição é obrigatória.</span>
+        <span *ngIf="guitarraForm.get('descricao')?.hasError('minlength')">Mínimo de 2 caracteres.</span>
+        <span *ngIf="guitarraForm.get('descricao')?.hasError('maxlength')">Máximo de 250 caracteres.</span>
+      </div>
+    </div>
+
+    <!-- Campo Preço -->
+    <div class="form-group">
+      <label class="form-label" for="preco">Preço R$</label>
+      <input class="form-input" type="text" id="preco" formControlName="preco" placeholder="Preço" mask="separator.2"
+        thousandSeparator="." decimalMarker=",">
+      <div class="error-message" *ngIf="guitarraForm.get('preco')?.touched && guitarraForm.get('preco')?.errors">
+        <span *ngIf="guitarraForm.get('preco')?.hasError('required')">Preço é obrigatório.</span>
+        <span *ngIf="guitarraForm.get('preco')?.hasError('min')">O preço deve ser positivo.</span>
+      </div>
+    </div>
+
+    <!-- Campo Quantidade -->
+    <div class="form-group">
+      <label class="form-label" for="quantidade">Quantidade</label>
+      <input class="form-input" type="number" id="quantidade" formControlName="quantidade"
+        placeholder="Quantidade em estoque" min="0">
+      <div class="error-message"
+        *ngIf="guitarraForm.get('quantidade')?.touched && guitarraForm.get('quantidade')?.errors">
+        <span *ngIf="guitarraForm.get('quantidade')?.hasError('required')">Quantidade é obrigatória.</span>
+        <span *ngIf="guitarraForm.get('quantidade')?.hasError('min')">Tem de ser maior ou igual a 0.</span>
+      </div>
+    </div>
+
+    <!-- Campo Status -->
+    <div class="form-group">
+      <label class="form-label" for="status">Disponível</label>
+      <mat-slide-toggle id="status" formControlName="status"></mat-slide-toggle>
+    </div>
+
+    <!-- Campo ano de fabricação -->
+    <div class="form-group">
+      <label class="form-label" for="anoFabricacao">Ano de fabricação</label>
+      <input class="form-input" type="text" id="anoFabricacao" formControlName="anoFabricacao" placeholder="Ex: 1985">
+      <div class="error-message"
+        *ngIf="guitarraForm.get('anoFabricacao')?.touched && guitarraForm.get('anoFabricacao')?.errors">
+        <span *ngIf="guitarraForm.get('anoFabricacao')?.hasError('required')">Ano é obrigatório.</span>
+        <span *ngIf="guitarraForm.get('anoFabricacao')?.hasError('pattern')">Formato inválido (YYYY).</span>
+        <span *ngIf="guitarraForm.get('anoFabricacao')?.hasError('max')">Ano futuro não permitido.</span>
+      </div>
+    </div>
+
+    <!-- Campo numero de cordas -->
+    <div class="form-group">
+      <label class="form-label" for="numeroDeCordas">Número de cordas</label>
+      <input class="form-input" type="number" id="numeroDeCordas" formControlName="numeroDeCordas" placeholder="7"
+        min="4" max="12">
+      <div class="error-message"
+        *ngIf="guitarraForm.get('numeroDeCordas')?.touched && guitarraForm.get('numeroDeCordas')?.errors">
+        <span *ngIf="guitarraForm.get('numeroDeCordas')?.hasError('required')">Número de cordas é obrigatório.</span>
+        <span
+          *ngIf="guitarraForm.get('numeroDeCordas')?.hasError('min') || guitarraForm.get('numeroDeCordas')?.hasError('max')">Mínimo
+          de 4, máximo de 12 cordas.</span>
+      </div>
+    </div>
+
+    <!-- Campo madeira -->
+    <div class="form-group">
+      <label class="form-label" for="madeira">Madeira</label>
+      <input class="form-input" type="text" id="madeira" formControlName="madeira"
+        placeholder="Tipo de madeira do corpo">
+      <div class="error-message" *ngIf="guitarraForm.get('madeira')?.touched && guitarraForm.get('madeira')?.errors">
+        <span *ngIf="guitarraForm.get('madeira')?.hasError('required')">Madeira é obrigatória.</span>
+        <span *ngIf="guitarraForm.get('madeira')?.hasError('minlength')">Mínimo de 2 caracteres.</span>
+        <span *ngIf="guitarraForm.get('madeira')?.hasError('maxlength')">Máximo de 50 caracteres.</span>
+      </div>
+    </div>
+
+    <!-- Campos de bracos -->
+    <div class="form-group">
+      <div class="form-group-title-box">
+        <label class="form-label" for="idBraco">Braço</label>
+      </div>
+      <select class="form-input" id="idBraco" formControlName="idBraco" *ngIf="bracos.length > 0; else semBracos">
+        <option *ngFor="let braco of bracos" [value]="braco.id">
+          {{ braco.formato }} - {{ braco.numeroDeTrastes }} - {{ braco.madeira }}
+        </option>
+      </select>
+      <div class="error-message" *ngIf="guitarraForm.get('idBraco')?.touched && guitarraForm.get('idBraco')?.errors">
+        <span *ngIf="guitarraForm.get('idBraco')?.hasError('required')">Braço é obrigatório.</span>
+      </div>
+    </div>
+    <ng-template #semBracos>
+      <div class="empty-message">
+        Nenhum braço cadastrado.
+      </div>
+    </ng-template>
+
+    <!-- Campos de captadores BRAÇO -->
+    <div class="form-group">
+      <div class="form-group-title-box">
+        <label class="form-label" for="idCaptadorBraco">Captador Braço</label>
+      </div>
+      <select class="form-input" id="idCaptadorBraco" formControlName="idCaptadorBraco"
+        *ngIf="captadoresBraco.length > 0; else semCaptadorBraco">
+        <option [value]="null">Nenhum</option>
+        <option *ngFor="let captador of captadoresBraco" [value]="captador.id">
+          {{ captador.marca }} - {{ captador.modelo }}
+        </option>
+      </select>
+      <div class="error-message"
+        *ngIf="guitarraForm.get('idCaptadorBraco')?.touched && guitarraForm.get('idCaptadorBraco')?.errors">
+        <span *ngIf="guitarraForm.get('idCaptadorBraco')?.hasError('required')">Captador Braço é obrigatório.</span>
+      </div>
+    </div>
+    <ng-template #semCaptadorBraco>
+      <div class="empty-message">
+        Nenhum captador BRAÇO cadastrado.
+      </div>
+    </ng-template>
+
+    <!-- Campos de captadores MEIO -->
+    <div class="form-group">
+      <div class="form-group-title-box">
+        <label class="form-label" for="idCaptadorMeio">Captador Meio </label>
+      </div>
+      <select class="form-input" id="idCaptadorMeio" formControlName="idCaptadorMeio"
+        *ngIf="captadoresMeio.length > 0; else semCaptadorMeio">
+        <option [value]="null">Nenhum</option>
+        <option *ngFor="let captador of captadoresMeio" [value]="captador.id">
+          {{ captador.marca }} - {{ captador.modelo }}
+        </option>
+      </select>
+      <div class="error-message"
+        *ngIf="guitarraForm.get('idCaptadorMeio')?.touched && guitarraForm.get('idCaptadorMeio')?.errors">
+        <span *ngIf="guitarraForm.get('idCaptadorMeio')?.hasError('required')">Captador Meio é obrigatório.</span>
+      </div>
+    </div>
+    <ng-template #semCaptadorMeio>
+      <div class="empty-message">
+        Nenhum captador MEIO cadastrado.
+      </div>
+    </ng-template>
+
+    <!-- Campos de captadores PONTE -->
+    <div class="form-group">
+      <div class="form-group-title-box">
+        <label class="form-label" for="idCaptadorPonte">Captador Ponte</label>
+      </div>
+      <select class="form-input" id="idCaptadorPonte" formControlName="idCaptadorPonte"
+        *ngIf="captadoresPonte.length > 0; else semCaptadorPonte">
+        <option [value]="null">Nenhum</option>
+        <option *ngFor="let captador of captadoresPonte" [value]="captador.id">
+          {{ captador.marca }} - {{ captador.modelo }}
+        </option>
+      </select>
+      <div class="error-message"
+        *ngIf="guitarraForm.get('idCaptadorPonte')?.touched && guitarraForm.get('idCaptadorPonte')?.errors">
+        <span *ngIf="guitarraForm.get('idCaptadorPonte')?.hasError('required')">Captador Ponte é obrigatório.</span>
+      </div>
+    </div>
+    <ng-template #semCaptadorPonte>
+      <div class="empty-message">
+        Nenhum captador PONTE cadastrado.
+      </div>
+    </ng-template>
+
+    <!-- Campos de Cor -->
+    <div class="form-group">
+      <div class="form-group-title-box">
+        <label class="form-label" for="idCor">Cor</label>
+      </div>
+      <div class="hex-row">
+        <select class="form-input" id="idCor" formControlName="idCor" *ngIf="cores.length > 0; else semCor">
+          <option *ngFor="let cor of cores" [value]="cor.id">
+            {{ cor.nome }}
+          </option>
+        </select>
+        <span class="color-swatch" [style.background]="corHex$ | async"></span>
+      </div>
+      <div class="error-message" *ngIf="guitarraForm.get('idCor')?.touched && guitarraForm.get('idCor')?.errors">
+        <span *ngIf="guitarraForm.get('idCor')?.hasError('required')">Cor é obrigatória.</span>
+      </div>
+    </div>
+    <ng-template #semCor>
+      <div class="empty-message">
+        Nenhuma cor cadastrada.
+      </div>
+    </ng-template>
+
+    <!-- Campos de Marca -->
+    <div class="form-group">
+      <div class="form-group-title-box">
+        <label class="form-label" for="idMarca">Marca</label>
+      </div>
+      <select class="form-input" id="idMarca" formControlName="idMarca" *ngIf="marcas.length > 0; else semMarca">
+        <option *ngFor="let marca of marcas" [value]="marca.id">
+          {{ marca.nome }}
+        </option>
+      </select>
+      <div class="error-message" *ngIf="guitarraForm.get('idMarca')?.touched && guitarraForm.get('idMarca')?.errors">
+        <span *ngIf="guitarraForm.get('idMarca')?.hasError('required')">Marca é obrigatória.</span>
+      </div>
+    </div>
+    <ng-template #semMarca>
+      <div class="empty-message">
+        Nenhuma marca cadastrada.
+      </div>
+    </ng-template>
+
+    <!-- Campos de Modelo -->
+    <div class="form-group">
+      <div class="form-group-title-box">
+        <label class="form-label" for="idModelo">Modelo</label>
+      </div>
+      <select class="form-input" id="idModelo" formControlName="idModelo" *ngIf="modelos.length > 0; else semModelo">
+        <option *ngFor="let modelo of modelos" [value]="modelo.id">
+          {{ modelo.nome }}
+        </option>
+      </select>
+      <div class="error-message" *ngIf="guitarraForm.get('idModelo')?.touched && guitarraForm.get('idModelo')?.errors">
+        <span *ngIf="guitarraForm.get('idModelo')?.hasError('required')">Modelo é obrigatório.</span>
+      </div>
+    </div>
+    <ng-template #semModelo>
+      <div class="empty-message">
+        Nenhum modelo cadastrado.
+      </div>
+    </ng-template>
+
+    <!-- Campos de Ponte -->
+    <div class="form-group">
+      <div class="form-group-title-box">
+        <label class="form-label" for="idPonte">Ponte</label>
+      </div>
+      <select class="form-input" id="idPonte" formControlName="idPonte" *ngIf="pontes.length > 0; else semPonte">
+        <option *ngFor="let ponte of pontes" [value]="ponte.id">
+          {{ ponte.modelo }} - {{ ponte.marca }}
+        </option>
+      </select>
+      <div class="error-message" *ngIf="guitarraForm.get('idPonte')?.touched && guitarraForm.get('idPonte')?.errors">
+        <span *ngIf="guitarraForm.get('idPonte')?.hasError('required')">Ponte é obrigatória.</span>
+      </div>
+    </div>
+    <ng-template #semPonte>
+      <div class="empty-message">
+        Nenhuma ponte cadastrada.
+      </div>
+    </ng-template>
+
+    <!-- Campos de Tarraxa -->
+    <div class="form-group">
+      <div class="form-group-title-box">
+        <label class="form-label" for="idTarracha">Tarraxa</label>
+      </div>
+      <select class="form-input" id="idTarracha" formControlName="idTarracha"
+        *ngIf="tarraxas.length > 0; else semTarraxa">
+        <option *ngFor="let tarraxa of tarraxas" [value]="tarraxa.id">
+          {{ tarraxa.modelo }} - {{ tarraxa.marca }}
+        </option>
+      </select>
+      <div class="error-message"
+        *ngIf="guitarraForm.get('idTarracha')?.touched && guitarraForm.get('idTarracha')?.errors">
+        <span *ngIf="guitarraForm.get('idTarracha')?.hasError('required')">Tarraxa é obrigatória.</span>
+      </div>
+    </div>
+    <ng-template #semTarraxa>
+      <div class="empty-message">
+        Nenhuma tarraxa cadastrada.
+      </div>
+    </ng-template>
+
+    <!-- Botões do formulário -->
+    <div class="button-group full-width">
+      <button type="submit" class="btn btn-primary" [disabled]="guitarraForm.invalid || loading">
+        {{ loading ? 'Salvando...' : (guitarraId ? 'Salvar Alterações' : 'Salvar') }}
+      </button>
+
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">
+        Cancelar
+      </button>
+    </div>
+  </form>
+</div>

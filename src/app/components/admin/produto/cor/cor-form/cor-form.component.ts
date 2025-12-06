@@ -99,4 +99,14 @@ export class CorFormComponent implements OnInit {
   onCancel(): void {
     this.router.navigate(['/admin/cores']);
   }
+
+  get colorPreview(): string {
+    const raw = this.corForm.get('codigoHexadecimal')?.value || '';
+    return this.formatHex(raw);
+  }
+
+  private formatHex(value: string): string {
+    if (!value) return '#000000';
+    return value.startsWith('#') ? value : `#${value}`;
+  }
 }

@@ -1,0 +1,94 @@
+<div class="page" *ngIf="!loading && guitarra; else loadingTpl">
+  <button mat-button color="primary" class="back" (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
+    Voltar
+  </button>
+
+  <div class="hero">
+    <div class="image-frame">
+      <img [src]="imagemUrl || placeholder" [alt]="guitarra!.nome" />
+    </div>
+
+    <div class="info">
+      <p class="tag">
+        {{ guitarra!.marca?.nome || 'Marca indefinida' }} &mdash;
+        {{ guitarra!.modelo?.nome || 'Modelo' }}
+      </p>
+      <h1>{{ guitarra!.nome }}</h1>
+      <div class="price">
+        {{ guitarra!.preco | currency:'BRL':'symbol-narrow':'1.2-2' }}
+      </div>
+      <div class="status" [class.out]="(guitarra!.quantidade ?? 0) === 0">
+        {{ (guitarra!.quantidade ?? 0) > 0 ? 'Em estoque' : 'Esgotado' }}
+      </div>
+      <p class="desc">
+        {{ guitarra!.descricao || 'Guitarra sem descricao detalhada.' }}
+      </p>
+
+      <div class="actions">
+        <button mat-flat-button color="primary" class="btn-ghost" (click)="goBack()">Voltar</button>
+        <button mat-flat-button color="accent" class="btn-cta" (click)="addToCart()">Adicionar ao carrinho</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="specs">
+    <h3>Especificacoes</h3>
+    <div class="spec-grid">
+      <div class="spec">
+        <span class="label">Marca</span>
+        <span class="value">{{ guitarra!.marca?.nome || '-' }}</span>
+      </div>
+      <div class="spec">
+        <span class="label">Modelo</span>
+        <span class="value">{{ guitarra!.modelo?.nome || '-' }}</span>
+      </div>
+      <div class="spec">
+        <span class="label">Cor</span>
+        <span class="value color-pill" [style.background]="guitarra!.cor?.codigoHexadecimal || '#ddd'">
+          {{ guitarra!.cor?.nome || 'N/D' }}
+        </span>
+      </div>
+      <div class="spec">
+        <span class="label">Madeira</span>
+        <span class="value">{{ guitarra!.madeira || '-' }}</span>
+      </div>
+      <div class="spec">
+        <span class="label">Ano</span>
+        <span class="value">{{ guitarra!.anoFabricacao || '-' }}</span>
+      </div>
+      <div class="spec">
+        <span class="label">Cordas</span>
+        <span class="value">{{ guitarra!.numeroDeCordas || '-' }}</span>
+      </div>
+      <div class="spec">
+        <span class="label">Braco</span>
+        <span class="value">{{ guitarra!.braco?.formato || guitarra!.braco?.madeira || '-' }}</span>
+      </div>
+      <div class="spec">
+        <span class="label">Ponte</span>
+        <span class="value">{{ guitarra!.ponte?.modelo || '-' }}</span>
+      </div>
+      <div class="spec">
+        <span class="label">Tarraxas</span>
+        <span class="value">{{ guitarra!.tarracha?.modelo || '-' }}</span>
+      </div>
+      <div class="spec">
+        <span class="label">Captadores</span>
+        <span class="value">
+          {{ guitarra!.captadorBraco?.modelo || 'Braco' }} /
+          {{ guitarra!.captadorMeio?.modelo || 'Meio' }} /
+          {{ guitarra!.captadorPonte?.modelo || 'Ponte' }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loadingTpl>
+  <div class="state">
+    <p *ngIf="loading">Carregando guitarra...</p>
+    <p *ngIf="error">{{ error }}</p>
+    <button mat-button color="primary" routerLink="/home">Voltar</button>
+  </div>
+</ng-template>

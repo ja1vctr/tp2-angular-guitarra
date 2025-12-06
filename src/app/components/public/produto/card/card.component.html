@@ -24,14 +24,14 @@
       </mat-card-content>
 
       <mat-card-actions class="acoes">
-        <button mat-button color="primary" class="card-button">Ver Detalhes</button>
-        <!-- <button
+        <button mat-button color="primary" class="card-button" (click)="openDetails(card)">Ver Detalhes</button>
+        <button
           mat-flat-button
           color="accent"
           class="btn-full"
           (click)="adicionarAoCarrinho(card)">
           Adicionar ao Carrinho
-        </button> -->
+        </button>
       </mat-card-actions>
       </div>
     </mat-card>

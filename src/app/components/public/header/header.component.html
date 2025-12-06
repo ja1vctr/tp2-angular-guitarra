@@ -6,19 +6,36 @@
 
     <!-- Campo de Busca -->
     <div class="header-section search-section">
-      <!-- <input type="text" class="search-input" placeholder="Pesquise por um formato de braço" [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange($event)"> -->
-      <input type="text" class="search-input" placeholder="Pesquise por guitarra, modelo, marca...">
+      <input type="text" class="search-input" placeholder="Pesquise por guitarra, modelo, marca..." [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange($event)">
     </div>
 
     <!-- Ícones de Ação -->
     <div class="header-section actions-section">
-      <button mat-icon-button aria-label="Conta de usuário">
-        <mat-icon>person_outline</mat-icon>
-      </button>
+      <ng-container *ngIf="userName; else loginActions">
+        <div class="user-chip" [matMenuTriggerFor]="userMenu">
+          <div class="avatar" [class.with-img]="avatarUrl" [style.background-image]="avatarUrl ? 'url(' + avatarUrl + ')' : 'none'">
+            <span *ngIf="!avatarUrl">{{ initials }}</span>
+          </div>
+          <span class="user-name">{{ userName }}</span>
+        </div>
+        <mat-menu #userMenu="matMenu">
+          <button mat-menu-item (click)="goToProfile()">Visualizar perfil</button>
+          <button mat-menu-item (click)="logout()">Logout</button>
+        </mat-menu>
+      </ng-container>
+      <ng-template #loginActions>
+        <button mat-button class="login-button" (click)="goToLogin()">
+          <mat-icon>login</mat-icon>
+          Login
+        </button>
+        <button mat-icon-button aria-label="Conta de usuário" (click)="goToLogin()">
+          <mat-icon>person_outline</mat-icon>
+        </button>
+      </ng-template>
       <button mat-icon-button aria-label="Itens favoritos">
         <mat-icon>favorite_border</mat-icon>
       </button>
-      <button mat-icon-button aria-label="Carrinho de compras">
+      <button mat-icon-button aria-label="Carrinho de compras" (click)="openCart()">
         <mat-icon>shopping_cart_outline</mat-icon>
       </button>
     </div>

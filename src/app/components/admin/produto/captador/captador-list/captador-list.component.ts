@@ -115,7 +115,7 @@ export class CaptadorListComponent {
     }
 
     this.loading = true;
-    this.captadorService.getByFormato(termo).subscribe({
+    this.captadorService.getByModelo(termo).subscribe({
       next: (data) => {
         this.captadores = data; 
         this.totalRecords = data.length;

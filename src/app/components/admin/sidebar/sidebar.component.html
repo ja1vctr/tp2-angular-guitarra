@@ -1,35 +1,56 @@
 <mat-nav-list class="sidebar">
-  <div class="user-info">
+  <!-- Informações do Usuário -->
+  <a class="user-info" [routerLink]="'/admin/perfil'">
     <img [src]="userImage" alt="User Avatar" class="user-avatar">
     <div class="user-details">
       <span class="user-name">{{ userName }}</span>
-      <span class="user-email">{{ userEmail }}</span>
     </div>
-  </div>
+  </a>
+
   <div class="mat-list-container">
+    <div class="category-title">Loja</div>
+    <!-- Seção de Rotas da Loja (Dashboard, Guitarras) -->
     <div class="mat-list-loja-border">
-      <a mat-list-item class="mat-list-item-loja"
-        *ngFor="let item of navItemsLoja"
-        [routerLink]="item.link"
-        routerLinkActive="active-link"
-        [routerLinkActiveOptions]="{ exact: true }">
+      <a mat-list-item class="mat-list-item-loja" *ngFor="let item of navItemsLoja" [routerLink]="item.link"
+        routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
         <span class="mat-list-span">
           <mat-icon matListIcon class="mat-list-icon">{{ item.icon }}</mat-icon>
           <span matLine class="mat-list-text">{{ item.label }}</span>
         </span>
       </a>
     </div>
+
+    <!-- NOVO DROPDOWN: Gestão de Usuários -->
+    <mat-expansion-panel class="sidebar-expansion-panel" [expanded]="isUsersMenuExpanded()">
+      <mat-expansion-panel-header (click)="toggleUsersMenu()" class="expansion-header">
+        <mat-panel-title>
+          <mat-icon>group</mat-icon>
+          <span class="font-medium">Usuários</span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <!-- Sub-itens: Clientes e Funcionários -->
+      <mat-nav-list class="sub-nav-list">
+        <a mat-list-item *ngFor="let subItem of navItemsUsuarios" [routerLink]="subItem.link"
+          routerLinkActive="active-link" class="sub-nav-item">
+          <mat-icon matListItemIcon>{{ subItem.icon }}</mat-icon>
+          <span matListItemTitle class="text-label">{{ subItem.label }}</span>
+        </a>
+      </mat-nav-list>
+    </mat-expansion-panel>
+
+
+    <!-- Seção de Rotas de Configuração de Produto (Catálogo) -->
     <div class="mat-list-catalogo-border">
-      <a mat-list-item class="mat-list-item-configure"
-      *ngFor="let item of navItemsProduto"
-      [routerLink]="item.link"
-      routerLinkActive="active-link"
-      [routerLinkActiveOptions]="{ exact: true }">
-      <span class="mat-list-span">
-        <span matLine class="mat-list-text">{{ item.label }}</span>
-        <mat-icon matListIcon class="mat-list-icon">{{ item.icon }}</mat-icon>
-      </span>
-      </a>      
+      <div class="category-title">Componentes</div>
+      <a mat-list-item class="mat-list-item-configure" *ngFor="let item of navItemsProduto" [routerLink]="item.link"
+        routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+        <span class="mat-list-span">
+          <mat-icon matListIcon class="mat-list-icon">{{ item.icon }}</mat-icon>
+          <span matLine class="mat-list-text">{{ item.label }}</span>
+        </span>
+      </a>
     </div>
+
   </div>
 </mat-nav-list>

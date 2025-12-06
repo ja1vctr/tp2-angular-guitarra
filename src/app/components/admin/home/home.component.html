@@ -1,1 +1,31 @@
-<p>home works!</p>
+<section class="dashboard">
+  <header class="hero">
+    <div class="hero-text">
+      <p class="eyebrow">Dashboard</p>
+      <h1>Área administrativa em construção</h1>
+      <p class="subtitle">Em breve você verá métricas, vendas e estoque aqui.</p>
+    </div>
+    <div class="hero-chip">Preview</div>
+  </header>
+
+  <div class="grid">
+    <div class="card stat" *ngFor="let s of stats">
+      <span class="stat-label">{{ s.label }}</span>
+      <span class="stat-value">{{ s.value }}</span>
+      <span class="stat-detail">{{ s.detail }}</span>
+    </div>
+
+    <div class="card shortcuts">
+      <div class="card-header">
+        <span>Atalhos rápidos</span>
+        <small>Acesse as áreas mais usadas</small>
+      </div>
+      <div class="shortcut-list">
+        <a *ngFor="let sc of shortcuts" class="shortcut" [routerLink]="sc.link">
+          <span class="icon">{{ sc.icon }}</span>
+          <span class="label">{{ sc.label }}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

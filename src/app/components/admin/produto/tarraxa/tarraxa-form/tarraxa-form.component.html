@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="form-header">
+    <h2 class="form-title">
+      {{ tarraxaId ? 'Editar Tarracha' : 'Novo Tarracha' }}
+    </h2>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="text-center mt-4 loading-indicator">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden"></span> 
+    </div>
+  </div>
+
+  <!-- Form -->
+  <form [formGroup]="tarraxaForm" (ngSubmit)="onSubmit()" class="form-grid" *ngIf="!loading">
+
+    <!-- MARCA -->
+    <div class="form-group">
+      <label class="form-label" for="marca">Marca</label>
+      <input class="form-input" type="text" id="marca" formControlName="marca" placeholder="Marca do tarraxa">
+
+      <div class="error-message" *ngIf="tarraxaForm.get('marca')?.touched && tarraxaForm.get('marca')?.errors">
+        <span *ngIf="tarraxaForm.get('marca')?.hasError('required')">Marca é obrigatória.</span>
+        <span *ngIf=" tarraxaForm.get('marca')?.hasError('minlength')">Mínimo de 2 caracteres.</span>
+        <span *ngIf="tarraxaForm.get('marca')?.hasError('maxlength')">Máximo de 50 caracteres.</span>
+      </div>
+    </div>
+
+    <!-- MATERIAL -->
+    <div class="form-group">
+      <label class="form-label" for="material">Material</label>
+      <input class="form-input" type="text" id="material" formControlName="material" placeholder="Marca do tarraxa">
+
+      <div class="error-message" *ngIf="tarraxaForm.get('material')?.touched && tarraxaForm.get('material')?.errors">
+        <span *ngIf="tarraxaForm.get('material')?.hasError('required')">Marca é obrigatória.</span>
+        <span *ngIf="tarraxaForm.get('material')?.hasError('minlength')">Mínimo de 2 caracteres.</span>
+        <span *ngIf="tarraxaForm.get('material')?.hasError('maxlength')">Máximo de 50 caracteres.</span>
+      </div>
+    </div>
+
+    <!-- MODELO -->
+    <div class="form-group">
+      <label class="form-label" for="modelo">Modelo</label>
+      <input class="form-input" type="text" id="modelo" formControlName="modelo" placeholder="Modelo do tarraxa">
+
+      <div class="error-message" *ngIf="tarraxaForm.get('modelo')?.touched && tarraxaForm.get('modelo')?.errors">
+        <span *ngIf="tarraxaForm.get('modelo')?.hasError('required')">Modelo é obrigatório.</span>
+        <span *ngIf="tarraxaForm.get('modelo')?.hasError('minlength')">Mínimo de 2 caracteres.</span>
+        <span *ngIf="tarraxaForm.get('modelo')?.hasError('maxlength')">Máximo de 50 caracteres.</span>
+      </div>
+    </div>
+
+    <!-- Botões -->
+    <div class="button-group">
+      <button type="submit" class="btn btn-primary" [disabled]="tarraxaForm.invalid || loading">
+        {{ loading ? 'Salvando...' : (tarraxaId ? 'Salvar Alterações' : 'Salvar') }}
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">
+        Cancelar
+      </button>
+    </div>
+  </form>
+</div> 

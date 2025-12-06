@@ -45,7 +45,12 @@
             <tr *ngFor="let cor of cores">
               <td>{{ cor.id  }}</td>
               <td>{{ cor.nome }}</td>
-              <td>{{ cor.codigoHexadecimal }}</td>
+              <td>
+                <div class="hex-cell">
+                  <span class="color-swatch" [style.background]="cor.codigoHexadecimal"></span>
+                  <span class="hex-text">{{ cor.codigoHexadecimal }}</span>
+                </div>
+              </td>
               <td class="actions-column">
                 <div class="action-buttons">
                   <button mat-button class="btn btn-edit" (click)="navigateToEdit(cor.id!)">

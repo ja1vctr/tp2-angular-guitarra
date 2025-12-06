@@ -45,7 +45,9 @@
             <tr *ngFor="let marca of marcas">
               <td>{{ marca.id  }}</td>
               <td>{{ marca.nome }}</td>
-              <td>{{ marca.cnpj }}</td>
+              <td>
+                {{ marca.cnpj | slice:0:2 }}.{{ marca.cnpj | slice:2:5 }}.{{ marca.cnpj | slice:5:8 }}/{{ marca.cnpj | slice:8:12 }}-{{ marca.cnpj | slice:12:14 }}
+              </td>
               <td class="actions-column">
                 <div class="action-buttons">
                   <button mat-button class="btn btn-edit" (click)="navigateToEdit(marca.id!)">

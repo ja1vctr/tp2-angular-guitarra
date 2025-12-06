@@ -47,7 +47,7 @@ export class MarcaFormComponent {
     this.marcaForm = this.fb.group({
     id: [null],
     nome: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-    cnpj: ['', [Validators.required, Validators.minLength(14), Validators.maxLength(14)]],
+    cnpj: ['', [Validators.required, Validators.minLength(14), Validators.maxLength(18)]],
     });
   }
 
@@ -59,6 +59,7 @@ export class MarcaFormComponent {
         this.loadMarca(this.marcaId);
       }
     })
+    this.setupCnpjMask();
   }
 
   loadMarca(id: number): void {
@@ -96,7 +97,12 @@ export class MarcaFormComponent {
     this.loading = true;
     this.error = null;
     
-    const marcaData = this.marcaForm.value;
+    const marcaData = { ...this.marcaForm.value };
+
+    if (marcaData.cnpj) {
+        // Remove todos os caracteres não numéricos antes de enviar para a API
+        marcaData.cnpj = marcaData.cnpj.replace(/\D/g, ''); 
+    }
 
     const saveOperation = this.marcaId
       ? this.marcaService.alter(marcaData)
@@ -132,6 +138,62 @@ export class MarcaFormComponent {
           .subscribe(modelos => this.listaModelos = modelos);
       }
     });
+  }
+
+  /**
+   * 1. Configura um listener para o campo CNPJ.
+   * Isto permite que a máscara seja aplicada durante a digitação.
+   */
+  setupCnpjMask(): void {
+    const cnpjControl = this.marcaForm.get('cnpj');
+    
+    if (cnpjControl) {
+      cnpjControl.valueChanges.subscribe(rawValue => {
+        if (!rawValue) return;
+
+        // Remove caracteres não numéricos para garantir que o valor do formulário
+        // permaneça limpo (apenas 14 dígitos).
+        const cleanValue = rawValue.replace(/\D/g, '');
+        
+        // Aplica a formatação visual
+        const maskedValue = this.applyCnpjMask(cleanValue);
+
+        // Se o valor mascarado for diferente do valor no controle, atualiza.
+        // { emitEvent: false } é crucial para evitar um loop infinito de valueChanges.
+        if (maskedValue !== rawValue) {
+          cnpjControl.setValue(maskedValue, { emitEvent: false });
+        }
+      });
+    }
+  }
+
+  /**
+   * 2. Aplica a máscara 00.000.000/0000-00 ao valor limpo.
+   */
+  applyCnpjMask(value: string): string {
+    // 00.000.000/0000-00
+    // Limita a 14 caracteres (o que já é feito por Validators.maxLength(14))
+    const cleanValue = value.substring(0, 14);
+
+    if (cleanValue.length <= 14) {
+      return cleanValue.replace(
+        /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/,
+        '$1.$2.$3/$4-$5'
+      ).replace(
+        /^(\d{2})(\d{3})(\d{3})(\d{4})$/,
+        '$1.$2.$3/$4'
+      ).replace(
+        /^(\d{2})(\d{3})(\d{3})$/,
+        '$1.$2.$3'
+      ).replace(
+        /^(\d{2})(\d{3})$/,
+        '$1.$2'
+      ).replace(
+        /^(\d{2})$/,
+        '$1'
+      );
+    }
+    return cleanValue;
   }
 
 

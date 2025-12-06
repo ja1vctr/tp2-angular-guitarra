@@ -24,7 +24,7 @@
 }
 
 .admin-sidenav {
-  width: 250px;
+  width: 280px;
   display: flex;
   flex-direction: column;
   height: -moz-available;

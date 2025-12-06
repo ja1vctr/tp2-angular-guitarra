@@ -18,6 +18,10 @@
   color: var(--color-text-secondary);
 }
 
+.spacer {
+  flex: 1;
+}
+
 .header-button {
   color: var(--color-white);
   transition: background-color 0.2s ease;

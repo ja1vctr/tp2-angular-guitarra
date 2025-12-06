@@ -1,190 +1,224 @@
-/* sidebar.component.scss */
-
-::ng-deep .material-symbols-outlined,
-::ng-deep .material-icons {
-    /* Estilo Base: Ícone sem preenchimento, peso 400 */
-    font-variation-settings:
-        'FILL' 0,
-        'wght' 500,
-        'GRAD' 1,
-        'opsz' 24;
-    
-    transition: font-variation-settings 0.2s ease-in-out;
+/* Cores base do Sidebar (Fundo Escuro e Texto Claro) */
+.sidebar {
+  /* Fundo escuro do sidebar */
+  background-color: var(--color-background-sidebar);
+  padding: 0.5rem;
+  box-sizing: border-box;
+  padding-right: 2rem;
+  width: 100%;
+  height: 100%;
 }
 
-.sidebar {
+/* 👤 Informações do Usuário */
+.user-info {
+  /* Cor do texto para um bom contraste no fundo escuro */
+  color: var(--color-text-dark);
+  display: flex;
+  align-items: center; /* Alinha verticalmente */
+  gap: 0.75rem; /* Aumentei um pouco o gap */
+  margin-bottom: 2rem; /* Reduzi um pouco a margem inferior */
+  padding: 0 1rem; /* Adiciona padding para alinhar com os itens */
+  text-decoration: none;
+}
+
+.user-avatar {
+  width: 40px; /* Tamanho do avatar */
+  height: 40px;
+  border-radius: 50%; /* Torna o avatar redondo */
+  object-fit: cover;
+  border: 2px solid var(--color-text-secondary); /* Borda sutil */
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  color: var(--color-text-dark); /* Nome em cor de destaque (claro) */
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.user-name:hover {
+  color: var(--color-text-secondary);
+}
+
+.user-email {
+  color: var(--color-text-secondary); /* Email em cor secundária */
+  font-size: 0.85rem;
+}
+
+.mat-list-container {
+  /* Nada de especial aqui, apenas um contêiner */
+  color: var(--color-primary);
+}
+
+.category-title {
+  /* Título da categoria com destaque */
+  color: var(--color-primary);
+  font-size: 0.9rem; /* Levemente menor */
+  font-weight: 700;
+  margin: 1.5rem 1rem 0.5rem 1rem; /* Ajuste de margens */
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-top: 1px solid var(--color-background-dark-secondary);
+  padding-top: 1rem;
+}
+
+/* 🔗 ESTILOS DE ITENS DE NAVEGAÇÃO (Links Principais) */
+a.mat-list-item-loja,
+.expansion-header,
+a.mat-list-item-configure {
+  margin: 0.25rem 0;
+  padding: 0 1rem !important; /* Ajusta o padding para alinhamento */
+  height: 3rem !important;
+  color: var(--color-text-secondary);
+
+  .font-medium {
+    color: var(--color-text-dark);
+  }
+
+  /* Garante o layout flex para o conteúdo interno */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  &:hover {
+    background-color: var(
+      --color-background-dark-secondary
+    ); /* Fundo de hover escuro suave */
+    color: var(--color-text-dark); /* Mantém o texto claro */
+  }
+}
+
+/* Estado Ativo/Selecionado (Link) */
+.active-link {
+  background: var(
+    --color-background-dark-tertiary
+  ); /* Cor principal para o fundo ativo */
+  color: var(--color-text-dark) !important; /* Texto branco no fundo ativo */
+  font-weight: 600;
+
+  .mat-list-icon {
+    color: var(--color-text-dark) !important; /* Ícone branco */
+  }
+
+  &:hover {
+    /* Mantém o mesmo estilo no hover do ativo */
+    background: var(--color-primary);
+    color: var(--color-text-dark) !important;
+  }
+}
+
+.mat-list-span {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  color: var(--color-text-dark);
+
+  .mat-list-icon {
+    margin-right: 0.75rem;
+    color: var(
+      --color-text-secondary
+    ); /* Cor secundária para ícones não-ativos */
+  }
+
+  /* Estilo específico para a seção de Produto/Configuração (mantido, mas simplificado) */
+  a.mat-list-item-configure & {
+    justify-content: flex-start;
+  }
+}
+
+/* 🔽 ESTILOS DO DROPDOWN (mat-expansion-panel) */
+.sidebar-expansion-panel {
+  background-color: transparent; /* Fundo transparente */
+  margin: 0.25rem 0;
+  color: var(--color-text-dark);
+  .mat-expansion-panel-header {
+    padding: 0 1rem;
+    box-shadow: none;
+    border: none; /* Header do Expansion Panel (Dropdown) */
+    /* Sobrescreve o fundo do Angular Material para ser transparente */
+    background-color: transparent !important;
+    height: 3rem !important;
+    color: var(--color-text-secondary);
+  }
+
+  /* Estado Expandido/Ativo */
+  &.mat-expanded {
+    .expansion-header {
+      background-color: var(
+        --color-background-dark-secondary
+      ); /* Fundo levemente diferente */
+      color: var(--color-text-dark);
+      font-weight: 600;
+      border-radius: 0.5rem 0.5rem 0 0; /* Apenas na parte superior */
+    }
+  }
+
+  /* Conteúdo do Expansion Panel */
+  .mat-expansion-panel-body {
+    padding: 0 !important;
+    background-color: var(--color-primary); /* Fundo dos sub-itens */
+  }
+
+  /* Sub-itens (Clientes/Funcionários) */
+  .sub-nav-list {
     display: flex;
     flex-direction: column;
-    /* Usando var() para as cores */
-    background-color: var(--color-text-light); 
-    height: calc(100vh);
-    border-radius: 0;
-    border-style: none;
+    justify-content: start;
+    align-items: start;
     padding: 0;
-
-    /* --- User Info --- */
-    .user-info {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        padding: 1.37rem 1rem;
-
-        .user-avatar {
-            width: 2.5rem;
-            height: 2.5rem;
-            border-radius: 9999px;
-            object-fit: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-
-        .user-details {
-            display: flex;
-            flex-direction: column;
-
-            .user-name {
-                color: var(--color-white);
-                font-size: 1rem;
-                font-weight: 500;
-                line-height: normal;
-            }
-
-            .user-email {
-                color: var(--color-text-secondary); 
-                font-size: 0.875rem;
-                font-weight: 400;
-                line-height: normal;
-            }
-        }
+    .text-label {
+      color: var(--color-text-dark);
     }
-    
-    .mat-list-container{
-        display: flex;
-        flex-direction: column;
-        gap: 0.3rem;
-        padding: 1rem 0.5rem 1rem 0.5rem;
-        
-        .mat-list-title-group{
-            color: var(--color-text-secondary);
-        }
+  }
 
-        .mat-list-title-container {
-            display: flex;
-            align-items: center;
-            flex-direction: row;
-            gap: 0.5rem;
-            margin: 0 0 0.5rem 0;
-            
-            .mat-list-icon {
-                    color: var(--color-white);
-                    padding: 0.5rem;
-            }
+  .sub-nav-item {
+    margin: 0.1rem 0;
+    height: 2.5rem !important;
+    color: var(--color-text-secondary); /* Cor suave para sub-itens */
+    font-size: 0.95rem;
 
-            .mat-list-title-group {
-                display: flex;
-                align-items: center;
-                font-size: 1.1rem;
-                font-weight: 300;
-                padding-left: 0rem;
-                line-height: normal;
-                color: var(--color-text-secondary);
-            }
-        }
-        .mat-list-loja-border {
-            // border-top: 2px solid var(--color-background-dark-secondary);
-            padding-bottom: 1rem;
-        }
-
-        .mat-list-item-loja {
-            padding: 0 0.5rem;
-            height: 43px;
-                    
-            /* O Angular Material adiciona padding aqui; o !important é opcional, 
-            mas garante que o layout interno seja respeitado */
-            padding-left: 0 !important; 
-            padding-right: 0 !important;
-            
-            &:hover {
-                background-color: var(--color-background-dark-secondary);
-                color: var(--color-white);
-            }
-            
-            .mat-list-span{
-                display: flex;
-                align-items: center;
-                flex-direction: row;
-                margin: 0 0.5rem;
-                // justify-content: space-between;
-
-                .mat-list-icon {
-                    color: var(--color-white);
-                    padding: 0rem 0rem 0.5rem 0.5rem;
-                }
-
-                .mat-list-text {
-                    display: flex;
-                    // align-items: center;
-                    font-size: 1rem;
-                    font-weight: 100;
-                    padding-left: 1rem;
-                    line-height: normal;
-                    color: var(--color-white);
-                }
-            }
-        }
-
-        .mat-list-catalogo-border {
-            border-top: 2px solid var(--color-background-dark-secondary);
-            padding-top: 1.5rem;
-        }
-
-        .mat-list-item-configure {
-            padding: 0 0.5rem;
-            height: 43px;
-                    
-            padding-left: 0 !important; 
-            padding-right: 0 !important;
-            
-            &:hover {
-                background-color: var(--color-background-dark-secondary);
-                color: var(--color-white);
-            }
-            
-            .mat-list-span{
-                display: flex;
-                align-items: center;
-                flex-direction: row;
-                justify-content: space-between;
-
-                .mat-list-icon {
-                    /* **SOLUÇÃO DO ESPAÇAMENTO** */
-                    color: var(--color-white);
-                    padding: 0.5rem;
-                }
-
-                .mat-list-text {
-                    display: flex;
-                    // align-items: center;
-                    font-size: 1rem;
-                    font-weight: 100;
-                    padding-left: 1rem;
-                    line-height: normal;
-                    color: var(--color-white);
-                }
-            }
-        }
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    /* Sobrescreve estilos de ícone do mat-list-item para alinhamento */
+    .mat-icon,
+    .mat-list-item-title {
+      color: inherit;
     }
-        
-    
 
-    /* --- Estado Ativo --- */
-    .active-link {
-        background-color: var(--color-primary) !important;
-        
-        /* Garante que o texto e ícone do link ativo tenham a cor correta */
-        .mdc-list-item__primary-text, 
-        .mdc-list-item__primary-text mat-icon {
-            color: var(--color-white) !important;
-        }
+    &:hover {
+      background-color: var(
+        --color-background-dark-tertiary
+      ); /* Hover mais escuro */
+      color: var(--color-text-dark); /* Texto mais claro no hover */
     }
+  }
+
+  .sub-nav-item.active-link {
+    background-color: var(
+      --color-primary-dark
+    ) !important; /* Cor Primária Escura para ativo */
+    color: var(--color-text-dark) !important;
+  }
+}
+
+/* Ajustes de Borda/Divisória (Mantidos da sua estrutura original) */
+.mat-list-loja-border,
+.mat-list-catalogo-border {
+  /* Linha divisória sutil entre as seções */
+  border-bottom: 1px solid var(--color-line-primary);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Remove a borda do último grupo, se necessário */
+.mat-list-catalogo-border {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }

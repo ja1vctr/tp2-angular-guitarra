@@ -1,0 +1,60 @@
+<div class="cart-header">
+  <div>
+    <h3>Carrinho</h3>
+    <p>Revise suas guitarras antes de finalizar.</p>
+  </div>
+  <button mat-icon-button (click)="close()" aria-label="Fechar carrinho">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<div class="cart-body" *ngIf="(items$ | async) as items">
+  <ng-container *ngIf="items.length; else vazio">
+    <div class="cart-item" *ngFor="let item of items">
+      <img
+        [src]="placeholder"
+        alt="Imagem da guitarra"
+        class="thumb"
+      />
+      <div class="info">
+        <div class="title">{{ item.guitarra.nome }}</div>
+        <div class="subtitle">
+          {{ item.guitarra.marca?.nome || 'Marca' }} ·
+          {{ item.guitarra.modelo?.nome || 'Modelo' }}
+        </div>
+        <div class="price">
+          {{ item.guitarra.preco | currency:'BRL':'symbol-narrow':'1.2-2' }}
+        </div>
+        <div class="qty">
+          <button mat-icon-button (click)="decrement(item)" aria-label="Diminuir">
+            <mat-icon>remove</mat-icon>
+          </button>
+          <span>{{ item.quantidade }}</span>
+          <button mat-icon-button (click)="increment(item)" aria-label="Aumentar">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      </div>
+      <button mat-icon-button color="warn" (click)="remove(item)" aria-label="Remover">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </ng-container>
+</div>
+
+<div class="cart-footer" *ngIf="(items$ | async)?.length">
+  <div class="total">
+    <span>Total</span>
+    <strong>{{ total$ | async | currency:'BRL':'symbol-narrow':'1.2-2' }}</strong>
+  </div>
+  <button mat-flat-button color="primary" class="checkout" disabled>
+    Finalizar compra
+  </button>
+</div>
+
+<ng-template #vazio>
+  <div class="empty">
+    <p>Seu carrinho está vazio.</p>
+    <button mat-button color="primary" (click)="close()">Escolher guitarras</button>
+  </div>
+</ng-template>

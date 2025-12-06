@@ -1,20 +1,17 @@
-/* ================================
-   GRID RESPONSIVO (cards estáveis)
-   ================================ */
+/* Responsive grid */
 .container.responsive-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* ajuste o 280px se quiser mais estreito/largo */
-  gap: 1rem;
-  align-items: stretch; /* força mesma altura na linha */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  align-items: stretch;
   margin: 0;
   padding: 0;
 }
 
-/* wrapper com proporção fixa e imagem 100% do espaço */
+/* Image frame */
 .media-16x9 {
   position: relative;
   width: 100%;
-  /* escolha um: aspect-ratio moderno OU padding hack */
   aspect-ratio: 2 / 3;
   overflow: hidden;
   border-top-left-radius: inherit;
@@ -26,22 +23,10 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  max-width: 100%;
-  max-height: 100%;
   object-fit: cover;
 }
 
-/* se algum estilo do Material interferir, zeramos o atributo do mat-card-image */
-img[mat-card-image] { width: 100% !important; height: auto !important; }
-
-/* se o navegador não suportar aspect-ratio, use o fallback (descomente):
-.media-16x9 { padding-top: 56.25%; } 
-.media-16x9 .media-img { position:absolute; top:0; left:0; width:100%; height:100%; } */
-
-
-/* ================================
-   CARD (altura consistente)
-   ================================ */
+/* Card */
 .guitarra-card,
 mat-card.guitarra-card {
   display: flex;
@@ -51,39 +36,21 @@ mat-card.guitarra-card {
   aspect-ratio: 2 / 3;
 }
 
-/* ================================
-   IMAGEM (proporção consistente)
-   ================================ */
-.guitarra-img,
-mat-card .guitarra-img {
-  width: 100%;
-  aspect-ratio: 2 / 3;   /* mantém 16:9 em qualquer largura */
-  object-fit: cover;
-  display: block;
-  border-top-left-radius: inherit;
-  border-top-right-radius: inherit;
-}
-
-/* ================================
-   HEADER CENTRALIZADO DE VERDADE
-   (Material MDC v15+)
-   ================================ */
-
 .card-description-actions {
   padding: auto;
-
 }
+
 .header-center {
   display: flex;
-  justify-content: start;   /* centraliza o container do header */
+  justify-content: start;
   align-items: end;
-  padding-top: 8px; 
+  padding-top: 8px;
   color: var(--color-text-secondary);
-  
-  .card-title {
-    font-weight: 600;
-    font-size: 1rem 
-  }/* leve respiro */
+}
+
+.header-center .card-title {
+  font-weight: 600;
+  font-size: 1rem;
 }
 
 .card-subtitle {
@@ -92,7 +59,7 @@ mat-card .guitarra-img {
 
 .header-center .mat-mdc-card-header-text {
   width: 100%;
-  text-align: center;         /* centraliza título e subtítulo */
+  text-align: center;
 }
 
 .header-center .mat-mdc-card-title,
@@ -106,59 +73,75 @@ mat-card .guitarra-img {
 
 .header-center .mat-mdc-card-subtitle {
   margin-top: 2px;
-  opacity: .8;               /* contraste mais suave */
+  opacity: 0.8;
 }
 
-/* Fallback para Angular Material antigo (pré-MDC) */
-.header-center .mat-card-header-text { width: 100%; text-align: center; }
-.header-center .mat-card-title,
-.header-center .mat-card-subtitle {
-  display: block; margin: 0 auto; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+.content-center {
+  text-align: center;
 }
 
-/* ================================
-   CONTEÚDO
-   ================================ */
-.content-center { text-align: center; }
+.card-preco {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--color-primary);
+}
 
-  .card-preco {
-    font-weight: 600;
-    font-size: 1rem;
-    color: var(--color-primary);
-  }
-  .card-preco small {
-    font-weight: 500;
-    opacity: .9;
-  }
+.card-preco small {
+  font-weight: 500;
+  opacity: 0.9;
+}
 
-/* ================================
-   AÇÕES (sempre no rodapé)
-   ================================ */
 .acoes,
 mat-card-actions.acoes {
-  margin-top: auto;            /* empurra para o rodapé do card */
+  margin-top: auto;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  align-items: stretch;        /* botões 100% */
+  align-items: stretch;
   padding: 12px 16px 16px;
+}
+
+/* Buttons */
+.card-button {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #f5f5f5;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 600;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
 }
 
 .btn-full {
   width: 100%;
   padding: 12px 0;
+  background: linear-gradient(135deg, #7ee0a3, #3fb08c);
+  color: #0c0e14;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  border: none;
+  transition: transform 150ms ease, box-shadow 150ms ease;
 }
 
-/* ================================
-   AJUSTES FINOS DE TEXTO
-   ================================ */
-.centered-text { text-align: center; }
+.btn-full:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
 
-mat-card-title { font-weight: 700; }
-mat-card-subtitle { color: rgba(0,0,0,.6); }
+/* Text tweaks */
+.centered-text {
+  text-align: center;
+}
 
-/* Dark mode básico (opcional) */
+mat-card-title {
+  font-weight: 700;
+}
+
+mat-card-subtitle {
+  color: rgba(0, 0, 0, 0.6);
+}
+
 @media (prefers-color-scheme: dark) {
-  mat-card-subtitle { color: rgba(255,255,255,.75); }
+  mat-card-subtitle {
+    color: rgba(255, 255, 255, 0.75);
+  }
 }
-

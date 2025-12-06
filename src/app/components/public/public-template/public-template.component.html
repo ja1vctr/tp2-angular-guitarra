@@ -1,13 +1,18 @@
 <mat-sidenav-container class="admin-container">
-  <app-header />
-  <mat-sidenav class="admin-sidenav">
-    <!-- <app-sidebar /> -->
+  <app-header *ngIf="showChrome" />
+
+  <mat-sidenav
+    class="admin-sidenav"
+    mode="side"
+    position="end"
+    [opened]="opened"
+    [fixedInViewport]="true"
+    fixedTopGap="0">
+    <app-cart-sidenav />
   </mat-sidenav>
 
-    <!-- <app-head (menuToggle)="sidenav.toggle()"></app-head> -->
-
-    <div class="admin-content">
-      <router-outlet></router-outlet>
-      <app-footer></app-footer>
-    </div>
+  <div class="admin-content" [class.fullscreen]="!showChrome">
+    <router-outlet></router-outlet>
+    <app-footer *ngIf="showChrome"></app-footer>
+  </div>
 </mat-sidenav-container>

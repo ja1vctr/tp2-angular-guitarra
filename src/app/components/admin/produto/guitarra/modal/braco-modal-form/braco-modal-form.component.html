@@ -1,0 +1,75 @@
+<div class="container">
+  <div class="form-header">
+    <h2 class="form-title">
+      {{ bracoId ? 'Editar Braco' : 'Novo Braco' }}
+    </h2>
+  </div>
+  <div *ngIf="loading" class="text-center mt-4 loading-indicator">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden"></span> 
+    </div>
+  </div>
+
+  <form [formGroup]="bracoForm" (ngSubmit)="onSubmit()" class="form-grid" *ngIf="!loading">    
+    <div class="form-group">
+      <div class="form-group-input">
+        <div class="form-group">
+          <label class="form-label" for="formato">Formato</label>
+          <input class="form-input" type="text" id="formato" formControlName="formato" placeholder="Formato">
+          <div class="error-message" *ngIf="bracoForm.get('formato')?.touched && bracoForm.get('formato')?.errors">
+            <span *ngIf="bracoForm.get('formato')?.hasError('required')">Formato é obrigatório.</span>
+            <span *ngIf="bracoForm.get('formato')?.hasError('minlength')">Mínimo de 2 caracteres.</span>
+            <span *ngIf="bracoForm.get('formato')?.hasError('maxlength')">Mínimo de 50 caracteres.</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="formato">Madeira</label>
+          <input class="form-input" type="text" id="madeira" formControlName="madeira" placeholder="Madeira">
+          <div class="error-message" *ngIf="bracoForm.get('madeira')?.touched && bracoForm.get('madeira')?.errors">
+            <span *ngIf="bracoForm.get('madeira')?.hasError('required')">Madeira é obrigatório.</span>
+            <span *ngIf="bracoForm.get('madeira')?.hasError('minlength')">Mínimo de 2 caracteres.</span>
+            <span *ngIf="bracoForm.get('madeira')?.hasError('maxlength')">Mínimo de 50 caracteres.</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="numeroDeTrastes">Quantidade de trastes</label> 
+          <input class="form-input" type="number" id="numeroDeTrastes" formControlName="numeroDeTrastes" placeholder="ex: 22">
+          <div class="error-message" *ngIf="bracoForm.get('numeroDeTrastes')?.touched && bracoForm.get('numeroDeTrastes')?.errors">
+            <span *ngIf="bracoForm.get('numeroDeTrastes')?.hasError('required')">Quantidade de trastes é obrigatório.</span>
+            <span *ngIf="bracoForm.get('numeroDeTrastes')?.hasError('pattern')">Não pode valor negativo.</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="descricao">Descrição</label>
+          <textarea rows="5" cols="33" class="form-input form-input-descricao" id="descricao" formControlName="descricao"></textarea>
+          <div class="error-message" *ngIf="bracoForm.get('descricao')?.touched && bracoForm.get('descricao')?.errors">
+            <span *ngIf="bracoForm.get('descricao')?.hasError('minlength')">Mínimo de 2 caracteres.</span>
+            <span *ngIf="bracoForm.get('descricao')?.hasError('maxlength')">Mínimo de 250 caracteres.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="dataDeFabricacao">Data de Fabricação</label>
+      <mat-card class="demo-inline-calendar-card">
+        <mat-calendar [(selected)]="dataSelecionada" (selectedChange)="onDateSelected($event)"></mat-calendar>
+      </mat-card>
+      <div class="error-message" *ngIf="bracoForm.get('descricao')?.touched && bracoForm.get('dataDeFabricacao')?.errors">
+        <span *ngIf="bracoForm.get('dataDeFabricacao')?.hasError('required')">Informe uma data</span>
+        <span *ngIf="bracoForm.get('dataDeFabricacao')?.hasError('futureDate')">A data selecionada não pode ser no futuro</span>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button type="submit" class="btn btn-primary" [disabled]="bracoForm.invalid || loading">
+        {{ loading ? 'Salvando...' : (bracoId ? 'Salvar Alterações' : 'Salvar') }}
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">
+        Cancelar
+      </button>
+    </div>
+  </form>
+</div>

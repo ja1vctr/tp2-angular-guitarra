@@ -51,9 +51,9 @@ export class CaptadorService {
     );
   }
 
-  getByFormato(formato: string): Observable<Captador[]> {
-    return this.http.get<Captador[]>(`${this.apiUrl}/search/formato/${formato}`).pipe(
-      tap(captadors => console.log(`Captadors carregadas com formato ${formato}:`, captadors))
+  getByModelo(modelo: string): Observable<Captador[]> {
+    return this.http.get<Captador[]>(`${this.apiUrl}/search/modelo/${modelo}`).pipe(
+      tap(captadors => console.log(`Captadors carregadas com modelo ${modelo}:`, captadors))
     );
   }
 

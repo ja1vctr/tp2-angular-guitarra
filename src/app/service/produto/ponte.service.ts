@@ -51,9 +51,9 @@ export class PonteService {
     );
   }
 
-  getByNome(nome: string): Observable<Ponte[]> {
-    return this.http.get<Ponte[]>(`${this.apiUrl}/search/nome/${nome}`).pipe(
-      tap(pontes => console.log(`Pontes carregadas com nome ${nome}:`, pontes))
+  getByModelo(modelo: string): Observable<Ponte[]> {
+    return this.http.get<Ponte[]>(`${this.apiUrl}/search/modelo/${modelo}`).pipe(
+      tap(pontes => console.log(`Pontes carregadas com modelo ${modelo}:`, pontes))
     );
   }
 

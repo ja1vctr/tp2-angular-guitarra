@@ -1,0 +1,128 @@
+<div class="container">
+
+  <div class="card">
+
+    <!-- Header -->
+    <div class="card-header">
+      <div class="header-content">
+        <div>
+          <h2 class="card-title">Lista de Guitarras</h2>
+          <p class="card-description">Gerencie as guitarras disponíveis no catálogo</p>
+        </div>
+
+        <button class="btn btn-primary" (click)="navigateToCreate()">
+          <mat-icon>add</mat-icon>
+          Adicionar nova guitarra
+        </button>
+      </div>
+    </div>
+
+    <!-- Campo de busca -->
+    <div class="card-search">
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Pesquise por nome, modelo ou marca"
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="onSearchChange($event)"
+      />
+    </div>
+
+    <!-- Corpo -->
+    <div class="card-body">
+
+      <!-- Loading -->
+      <div *ngIf="loading" class="loading-container">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden"></span>
+        </div>
+        <p class="loading-text">Carregando...</p>
+      </div>
+
+      <!-- Nenhum registro encontrado -->
+      <div *ngIf="!loading && guitarras.length === 0" class="empty-message">
+        <i class="bi bi-info-circle"></i>
+        <span>Nenhuma guitarra encontrada.</span>
+      </div>
+
+      <!-- Tabela -->
+      <div *ngIf="!loading && guitarras.length > 0" class="table-container">
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th class="col-imagem">Imagem</th>
+              <th>Nome</th>
+              <th>Modelo</th>
+              <th>Preço</th>
+              <th>Qtd</th>
+              <th>Marca</th>
+              <th>Status</th>
+              <th class="actions-column">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let guitarra of guitarras">
+              <!-- td recebe a classe imagem-column -->
+              <td class="imagem-column">
+                <div class="imagem-wrap">
+                  <img
+                    *ngIf="imagens[guitarra.id!]"
+                    [src]="imagens[guitarra.id!]"
+                    class="thumb"
+                    alt="Imagem da guitarra"
+                    loading="lazy"
+                  />
+                  <span *ngIf="!imagens[guitarra.id!]" class="no-image">Sem imagem</span>
+                </div>
+              </td>
+              <td class="name-column">{{ guitarra.nome }}</td>
+              <td>{{ guitarra.modelo?.nome }}</td>
+              <td>R$ {{ guitarra.preco | number:'1.2-2' }}</td>
+              <td>{{ guitarra.quantidade }}</td>
+              <td>{{ guitarra.marca?.nome }}</td>
+              <td>
+                <mat-slide-toggle
+                  color="primary"
+                  [checked]="guitarra.status"
+                  (change)="onToggleStatus(guitarra, $event)"
+                >
+                  {{ guitarra.status ? 'Disponível' : 'Indisponível' }}
+                </mat-slide-toggle>
+              </td>
+
+              <td class="actions-column">
+                <div class="action-buttons">
+
+                  <button mat-button class="btn btn-edit" (click)="navigateToEdit(guitarra.id!)">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+
+                  <button mat-button class="btn btn-delete" (click)="deleteGuitarra(guitarra.id!)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+
+                </div>
+              </td>
+
+            </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Paginator -->
+  <mat-paginator
+    class="paginador"
+    [pageSizeOptions]="[5, 10, 15, 20]"
+    [pageSize]="pageSize"
+    [length]="totalRecords"
+    (page)="paginar($event)"
+  >
+  </mat-paginator>
+
+</div>

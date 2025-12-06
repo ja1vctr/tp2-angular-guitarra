@@ -25,7 +25,10 @@
     
     <div class="form-group">
       <label class="form-label" for="codigoHexadecimal">Código</label> 
-      <input class="form-input" type="text" id="codigoHexadecimal" formControlName="codigoHexadecimal" placeholder="ex: #000000">
+      <div class="hex-row">
+        <input class="form-input" type="text" id="codigoHexadecimal" formControlName="codigoHexadecimal" placeholder="ex: #000000">
+        <span class="color-swatch" [style.background]="colorPreview"></span>
+      </div>
       
       <div class="error-message" *ngIf="corForm.get('codigoHexadecimal')?.touched && corForm.get('codigoHexadecimal')?.errors">
         <span *ngIf="corForm.get('codigoHexadecimal')?.hasError('required')">Código é obrigatório.</span>

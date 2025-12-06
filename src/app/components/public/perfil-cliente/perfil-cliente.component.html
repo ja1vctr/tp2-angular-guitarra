@@ -1,0 +1,108 @@
+<div class="perfil-page" *ngIf="!loading; else carregando">
+  <mat-card class="perfil-card">
+    <div class="top">
+      <div class="avatar">
+        <img [src]="imagemPreview || placeholder" alt="Avatar do cliente" />
+      </div>
+      <div class="info">
+        <h2>{{ perfilForm.value.nome || 'Cliente' }}</h2>
+        <p>{{ emailForm.value.novoEmail || cliente?.email }}</p>
+        <p class="muted">CPF: {{ perfilForm.value.cpf }}</p>
+        <div class="avatar-actions">
+          <input #fileInput type="file" accept="image/*" hidden (change)="onFileSelected($event)" />
+          <button mat-stroked-button color="primary" (click)="fileInput.click()">
+            Selecionar imagem
+          </button>
+          <button mat-flat-button color="primary" (click)="uploadImagem()" [disabled]="!imagemArquivo">
+            Enviar nova foto
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <form [formGroup]="perfilForm" class="form-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="nome" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>CPF</mat-label>
+        <input matInput formControlName="cpf" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Data de nascimento</mat-label>
+        <input matInput type="date" formControlName="dataNascimento" />
+      </mat-form-field>
+
+      <div class="toggle">
+        <mat-slide-toggle formControlName="permitirMarketing">
+          Aceito receber novidades
+        </mat-slide-toggle>
+      </div>
+    </form>
+
+    <div class="actions">
+      <button mat-flat-button color="primary" (click)="salvarPerfil()">Salvar dados</button>
+      <div class="secondary-actions">
+        <button mat-stroked-button color="primary" (click)="showEmailModal = true">Alterar email</button>
+        <button mat-stroked-button color="primary" (click)="showSenhaModal = true">Alterar senha</button>
+      </div>
+    </div>
+  </mat-card>
+</div>
+
+<ng-template #carregando>
+  <div class="loading-state">
+    <p>Carregando perfil...</p>
+  </div>
+</ng-template>
+
+<!-- Modal email -->
+<div class="modal-backdrop" *ngIf="showEmailModal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3>Alterar email</h3>
+      <button mat-icon-button (click)="showEmailModal = false">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <form [formGroup]="emailForm" class="modal-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Novo e-mail</mat-label>
+        <input matInput type="email" formControlName="novoEmail" />
+      </mat-form-field>
+      <div class="modal-actions">
+        <button mat-stroked-button (click)="showEmailModal = false">Cancelar</button>
+        <button mat-flat-button color="primary" (click)="alterarEmail()">Atualizar email</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal senha -->
+<div class="modal-backdrop" *ngIf="showSenhaModal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3>Alterar senha</h3>
+      <button mat-icon-button (click)="showSenhaModal = false">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <form [formGroup]="senhaForm" class="modal-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Nova senha</mat-label>
+        <input matInput type="password" formControlName="novaSenha" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Confirmar senha</mat-label>
+        <input matInput type="password" formControlName="confirmarSenha" />
+      </mat-form-field>
+      <div class="modal-actions">
+        <button mat-stroked-button (click)="showSenhaModal = false">Cancelar</button>
+        <button mat-flat-button color="primary" (click)="alterarSenha()">Atualizar senha</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,6 +1,10 @@
 import { Braco } from "./braco";
+import { Captador } from "./captador";
 import { Cor } from "./cor";
+import { Marca } from "./marca";
 import { Modelo } from "./modelo";
+import { Ponte } from "./ponte";
+import { Tarraxa } from "./tarraxa";
 
 export interface Guitarra {
   id?: number;
@@ -10,20 +14,17 @@ export interface Guitarra {
   quantidade?: number;
   status?: boolean;
   
-  dataDeFabricacao?: Date;
+  anoFabricacao?: number;
   madeira?: string;
-  peso?: number;
-  assiantura?: string;
-  blindageEletronica?: boolean;
   numeroDeCordas?: number;
 
   braco?: Braco;
-  // captadorBraco?: Captador;
-  // captadorMeio?: Captador;
-  // captadorPonte?: Captador;
+  captadorBraco?: Captador;
+  captadorMeio?: Captador;
+  captadorPonte?: Captador;
   cor?: Cor;
-  // ponte?: Ponte;
-  // marca?: Marca;
+  ponte?: Ponte;
+  marca?: Marca;
   modelo?: Modelo;
-  // tarracha?: Tarracha;
+  tarracha?: Tarraxa;
 }

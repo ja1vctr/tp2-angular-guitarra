@@ -1,0 +1,85 @@
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <div class="header-content">
+        <div>
+          <h2 class="card-title">Funcionários</h2>
+          <p class="card-description">Gerencie a equipe</p>
+        </div>
+        <button class="btn btn-primary" (click)="navigateToCreate()">
+          <mat-icon>add</mat-icon>
+          Novo funcionário
+        </button>
+      </div>
+    </div>
+
+    <div class="card-search">
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Pesquise por nome"
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="onSearchChange($event)" />
+    </div>
+
+    <div class="card-body">
+      <div *ngIf="loading" class="loading-container">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden"></span>
+        </div>
+        <p class="loading-text">Carregando...</p>
+      </div>
+
+      <div *ngIf="!loading && funcionarios.length === 0" class="empty-message">
+        <i class="bi bi-info-circle"></i>
+        <span>Nenhum funcionário encontrado.</span>
+      </div>
+
+      <div *ngIf="!loading && funcionarios.length > 0" class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>CPF</th>
+              <th>Cargo</th>
+              <th>Email</th>
+              <th>Nascimento</th>
+              <th>Admissão</th>
+              <th class="actions-column">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let funcionario of funcionarios">
+              <td>{{ funcionario.id }}</td>
+              <td>{{ funcionario.nome }}</td>
+              <td>{{ funcionario.cpf }}</td>
+              <td>{{ funcionario.cargo }}</td>
+              <td>{{ funcionario.email }}</td>
+              <td>{{ funcionario.dataNascimento | date: 'dd/MM/yyyy' }}</td>
+              <td>{{ funcionario.dataAdmissao | date: 'dd/MM/yyyy' }}</td>
+              <td class="actions-column">
+                <div class="action-buttons">
+                  <button mat-button class="btn btn-edit" (click)="funcionario.id && navigateToEdit(funcionario.id)">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-button class="btn btn-delete" (click)="funcionario.id && deleteFuncionario(funcionario.id)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <mat-paginator
+          class="paginador"
+          [pageSizeOptions]="[5, 10, 15, 20]"
+          [pageSize]="pageSize"
+          [pageIndex]="page"
+          [length]="totalRecords"
+          (page)="paginar($event)">
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>

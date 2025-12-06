@@ -1,0 +1,87 @@
+<div class="perfil-container" *ngIf="!loading; else carregando">
+  <h2>Meu Perfil</h2>
+
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div *ngIf="funcionario" class="card">
+    <div class="foto-row">
+      <div class="foto-preview">
+        <img *ngIf="imagemPreview; else semFoto" [src]="imagemPreview" alt="Foto do usuário" />
+        <ng-template #semFoto>
+          <div class="placeholder">Sem foto</div>
+        </ng-template>
+      </div>
+      <div class="foto-actions">
+        <label class="file-input">
+          Escolher arquivo
+          <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+        </label>
+        <div class="foto-buttons">
+          <button mat-stroked-button color="primary" type="button" (click)="onDownloadImagem()">Download</button>
+          <button mat-flat-button color="primary" type="button" (click)="onUploadImagem()">Upload</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <span class="label">Nome</span>
+      <span>{{ funcionario.nome }}</span>
+    </div>
+    <div class="row">
+      <span class="label">E-mail</span>
+      <span>{{ funcionario.email }}</span>
+    </div>
+    <div class="row">
+      <span class="label">Cargo</span>
+      <span>{{ funcionario.cargo }}</span>
+    </div>
+    <div class="row">
+      <span class="label">Data de admissão</span>
+      <span>{{ funcionario.dataAdmissao | date }}</span>
+    </div>
+    <div class="row">
+      <span class="label">Salário</span>
+      <span>{{ funcionario.salario | currency:'BRL' }}</span>
+    </div>
+    <div class="actions">
+      <button mat-raised-button color="primary" (click)="abrirModal()">
+        Alterar senha
+      </button>
+    </div>
+  </div>
+</div>
+
+<ng-template #carregando>
+  <div class="loading">Carregando perfil...</div>
+</ng-template>
+
+<!-- Modal de alteração de senha -->
+<div class="modal-backdrop" *ngIf="showModal" (click)="fecharModal()"></div>
+<div class="modal" *ngIf="showModal">
+  <h3>Alterar senha</h3>
+  <form [formGroup]="senhaForm" (ngSubmit)="alterarSenha()">
+    <mat-form-field appearance="fill">
+      <mat-label>Nova senha</mat-label>
+      <input matInput type="password" formControlName="novaSenha" required />
+      <mat-error *ngIf="senhaForm.get('novaSenha')?.hasError('required')">
+        Informe a nova senha.
+      </mat-error>
+      <mat-error *ngIf="senhaForm.get('novaSenha')?.hasError('minlength')">
+        Mínimo de 6 caracteres.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Confirmar senha</mat-label>
+      <input matInput type="password" formControlName="confirmarSenha" required />
+      <mat-error *ngIf="senhaForm.get('confirmarSenha')?.hasError('required')">
+        Confirme a senha.
+      </mat-error>
+    </mat-form-field>
+
+    <div class="modal-actions">
+      <button mat-stroked-button type="button" (click)="fecharModal()">Cancelar</button>
+      <button mat-flat-button color="primary" type="submit">Salvar</button>
+    </div>
+  </form>
+</div>

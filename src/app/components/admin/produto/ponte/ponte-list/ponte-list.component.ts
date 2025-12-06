@@ -114,7 +114,18 @@ export class PonteListComponent {
       this.loadCount();
       return;
     }
-
+    this.ponteService.getByModelo(termo).subscribe({
+      next: (data) => {
+        this.pontes = data; 
+        this.totalRecords = data.length;
+        this.page = 0;
+        this.loading = false;
+      },
+      error: (error) => {
+        console.error('Error searching modelos: ', error);
+        this.loading = false;
+      }
+    });
     this.loading = true;
   }
 
